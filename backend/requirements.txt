@@ -1,0 +1,10 @@
+fastapi[standard]~=0.115.0
+uvicorn[standard]
+sqlalchemy~=2.0.35
+asyncpg
+alembic~=1.13.3
+pydantic~=2.9.2
+python-dotenv
+psycopg2-binary
+pydantic-settings~=2.5.2
+passlib~=1.7.4
