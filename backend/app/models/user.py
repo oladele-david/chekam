@@ -14,4 +14,5 @@ class User(Base):
     email = Column(Text, unique=True, nullable=False)
     phone_number = Column(Text)
     password_hash = Column(Text, nullable=False)
+    is_active = Column(Text, default=True)
     created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)

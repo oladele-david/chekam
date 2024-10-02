@@ -7,7 +7,7 @@ class UserBase(BaseModel):
     first_name: str | None = None
     last_name: str | None = None
     phone_number: str | None = None
-
+    is_active: bool | None = None
 
 class UserCreate(UserBase):
     password: str
@@ -19,6 +19,10 @@ class UserUpdate(UserBase):
 
 class User(UserBase):
     id: int
+
+class UserLoginSchema(BaseModel):
+    email: str
+    password: str
 
     class Config:
         orm_mode = True
