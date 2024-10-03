@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - DATABASE_URL=postgresql://chekam:chekam@51.8.81.142/chekam
+    networks:
+      - my-main-net
+
+networks:
+  my-main-net:
+    external: true
