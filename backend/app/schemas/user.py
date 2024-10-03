@@ -1,9 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,EmailStr
 
 
 class UserBase(BaseModel):
     username: str
-    email: str
+    email: EmailStr
     first_name: str | None = None
     last_name: str | None = None
     phone_number: str | None = None
@@ -21,8 +21,11 @@ class User(UserBase):
     id: int
 
 class UserLoginSchema(BaseModel):
-    email: str
+    email: EmailStr
     password: str
+
+class UserRegisterSchema(UserCreate):
+    pass
 
     class Config:
         orm_mode = True
