@@ -4,7 +4,7 @@ services:
   app:
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: backend/Dockerfile
     ports:
       - "8001:8001"
     environment:
