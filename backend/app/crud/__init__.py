@@ -1,1 +1,2 @@
 from .user import get_users, get_user, get_user_by_email, create_user, update_user, delete_user
+from .predefined_category import get_predefined_categories, get_predefined_category, create_predefined_category, update_predefined_category, delete_predefined_category

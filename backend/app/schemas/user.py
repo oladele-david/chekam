@@ -14,7 +14,7 @@ class UserCreate(UserBase):
 
 
 class UserUpdate(UserBase):
-    password: str | None = None
+    pass
 
 
 class User(UserBase):
