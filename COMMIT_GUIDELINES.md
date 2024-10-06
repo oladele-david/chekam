@@ -1,4 +1,4 @@
-Here is a detailed `COMMIT_GUIDELINES.md` to help maintain consistency and clarity in your commit messages. This guide includes appropriate Git emojis to use for various tasks and a commit message template specifically tailored for your project CHEKAM.
+Here is a detailed `COMMIT_GUIDELINES.md` to help maintain consistency and clarity in your commit messages. This guide includes appropriate Git emojis to use for various tasks and a commit message template specifically tailored for your project STAYCATION.
 
 ---
 
