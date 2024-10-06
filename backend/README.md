@@ -50,8 +50,8 @@ Chekam leverages FastAPI for its robust and scalable backend capabilities, relyi
 
 2. **Set up a virtual environment**:
     ```bash
-    python -m venv env
-    source env/bin/activate  # On Windows use `env\Scripts\activate`
+    python3 -m venv .venv
+    source .venv/bin/activate  # On Windows use `env\Scripts\activate`
     ```
 
 3. **Install dependencies**:
