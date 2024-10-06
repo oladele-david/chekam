@@ -11,7 +11,7 @@ from app.db.session import get_db
 # Settings for JWT tokens
 SECRET_KEY = "your-secret-key"  # Should be stored securely
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 180
 
 # Dependency
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/auth/login")
