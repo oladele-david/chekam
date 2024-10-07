@@ -29,6 +29,20 @@ def get_category(db: Session, category_id: int):
 
     return single_category
 
+def get_categories_by_user(db: Session, user_id: int):
+    """
+    Get all categories for a user
+    :param db:
+    :param user_id:
+    :return:
+    """
+
+    all_user_categories = db.query(Category).options(
+        joinedload(Category.user),
+        joinedload(Category.predefined_category)
+    ).filter(Category.user_id == user_id).all()
+    return all_user_categories
+
 
 def create_category(db: Session, category: CategoryCreate):
     """
