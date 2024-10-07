@@ -32,7 +32,7 @@ def read_categories(
     - List[schemas.Category]: List of category objects.
     """
 
-    categories = crud.get_category(db, skip=skip, limit=limit)
+    categories = crud.get_categories(db, skip=skip, limit=limit)
     return categories
 
 @router.get("/{category_id}", response_model=schemas.Category)

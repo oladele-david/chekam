@@ -1,11 +1,10 @@
-from typing import List
 from sqlalchemy.orm import Session, joinedload
 from app.models.category import Category
-from app.schemas.category import CategoryBase, CategoryCreate, CategoryUpdate, Category
+from app.schemas.category import CategoryCreate, CategoryUpdate
 
 
 def get_categories(
-        db: Session, skip: int = 0, limit: int = 10) -> List:
+        db: Session, skip: int = 0, limit: int = 10) :
     """
     Get all categories
     :param db:
@@ -14,7 +13,10 @@ def get_categories(
     :return:
     """
 
-    all_categories = db.query(Category).offset(skip).limit(limit).all()
+    all_categories = db.query(Category).options(
+        joinedload(Category.user),
+        joinedload(Category.predefined_category)
+    ).offset(skip).limit(limit).all()
     return all_categories
 
 
