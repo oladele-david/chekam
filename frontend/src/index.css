@@ -17,6 +17,24 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.onest-light {
+  font-family: 'Onest', system-ui;
+  font-optical-sizing: auto;
+  font-weight: 100;
+}
+
+.onest-regular {
+  font-family: 'Onest', system-ui;
+  font-optical-sizing: auto;
+  font-weight: 400; 
+}
+
+.onest-bold {
+  font-family: 'Onest', system-ui;
+  font-optical-sizing: auto;
+  font-weight: 700;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
