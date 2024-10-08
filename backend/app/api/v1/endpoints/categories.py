@@ -1,5 +1,3 @@
-from unicodedata import category
-
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
@@ -59,6 +57,27 @@ def read_category(
     if not category:
         raise HTTPException(status_code=404, detail="Category not found")
     return category
+
+
+@router.get("/user/{user_id}", response_model=List[schemas.Category])
+def read_user_categories(
+        user_id: int,
+        db: Session = Depends(get_db),
+        current_user: schemas.User = Depends(get_current_active_user)
+):
+    """
+    Retrieve all categories for a user
+
+    Parameters:
+    - user_id (int): ID of the user whose categories to retrieve.
+    - db (Session): Database session dependency.
+    - current_user (schemas.User): Current active user dependency.
+
+    Returns:
+    - List[schemas.Category]: List of category objects.
+    """
+    user_categories = crud.get_categories_by_user(db, user_id=user_id)
+    return user_categories
 
 @router.post("/create", response_model=schemas.Category, status_code=status.HTTP_201_CREATED)
 def create_category(
