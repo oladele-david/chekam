@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Text, TIMESTAMP, BigInteger
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.db.base_class import Base
 
@@ -13,3 +14,6 @@ class PredefinedCategory(Base):
     description = Column(Text)
     created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(TIMESTAMP(timezone=True), onupdate=func.now(), nullable=True)
+
+    # Relationship
+    categories = relationship("Category", back_populates="predefined_category")

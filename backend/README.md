@@ -51,7 +51,7 @@ Chekam leverages FastAPI for its robust and scalable backend capabilities, relyi
 2. **Set up a virtual environment**:
     ```bash
     python3 -m venv .venv
-    source .venv/bin/activate  # On Windows use `env\Scripts\activate`
+    source .venv/bin/activate  # On Windows use `.venv\Scripts\activate`
     ```
 
 3. **Install dependencies**:
@@ -61,7 +61,7 @@ Chekam leverages FastAPI for its robust and scalable backend capabilities, relyi
 
 ## Configuration
 
-- **Environment Variables**: Create a `.env` file and configure database connection settings, secret keys, and other environment-specific variables.
+- **Environment Variables**: Create a `.venv` file and configure database connection settings, secret keys, and other environment-specific variables.
 - **Database Setup**: Use Alembic for migrations to initialize and manage database schema.
 
 ## Usage

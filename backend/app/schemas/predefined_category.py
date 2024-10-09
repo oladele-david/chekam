@@ -1,3 +1,6 @@
+from datetime import datetime
+from typing import Optional
+
 from pydantic import BaseModel
 
 
@@ -16,8 +19,8 @@ class PredefinedCategoryUpdate(PredefinedCategoryBase):
 
 class PredefinedCategory(PredefinedCategoryBase):
     id: int
-    created_at: str | None = None
-    updated_at: str | None = None
+    created_at: datetime
+    updated_at: Optional[datetime] = None
 
     class Config:
         orm_mode = True

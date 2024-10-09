@@ -21,7 +21,6 @@ def get_user_by_phone_number(db: Session, phone_number: str):
 def create_user(db: Session, user: UserCreate):
     hashed_password = hash_password(user.password)
     db_user = User(
-        username=user.username,
         email=user.email,
         first_name=user.first_name,
         last_name=user.last_name,
@@ -37,7 +36,6 @@ def create_user(db: Session, user: UserCreate):
 
 def update_user(db: Session, user_id: int, user: UserUpdate):
     db_user = db.query(User).filter(User.id == user_id).first()
-    db_user.username = user.username
     db_user.email = user.email
     db_user.first_name = user.first_name
     db_user.last_name = user.last_name
