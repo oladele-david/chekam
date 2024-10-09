@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import SuccessSignup from './SuccessSignup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faPhone, faLock } from '@fortawesome/free-solid-svg-icons';
 import SignUpImage from '../images/man-home-Illustrator.png'
 import Logo from '../images/Favicon_color@2x.png'
 import LogoWhite from '../images/Favicon_white@2x.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const SignupPage = () => {
     const [formData, setFormData] = useState({
@@ -16,7 +19,12 @@ const SignupPage = () => {
         confirmPassword: '',
         agreeToTerms: false
     });
+    const navigate = useNavigate();
     const [passwordMatchError, setPasswordMatchError] = useState(false);
+    const [termsError, setTermsError] = useState(false); // State to track terms error
+    const [submissionError, setSubmissionError] = useState(null); // To track submission errors
+    const [showSuccess, setShowSuccess] = useState(false);
+    // const localUrl = import.meta.env.VITE_DEVELOPMENT_URL
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -26,17 +34,54 @@ const SignupPage = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             setPasswordMatchError(true);
             return;
         }
         setPasswordMatchError(false);
+
+        // Check if terms and conditions are agreed
+        if (!formData.agreeToTerms) {
+            setTermsError(true); // Set terms error state to true
+            return;
+        }
+        setTermsError(false); // Reset terms error state if user agrees
         // exclude confirmPassword when submitting to backend
-        const { confirmPassword, ...dataToSend } = formData;
+        const { confirmPassword, agreeToTerms, ...dataToSend } = formData;
         console.log('Data submitted: ', dataToSend);
-        // API call here
+
+
+        try {
+            // Send the user data to the backend
+            // const response = await axios.post(`${process.env.REACT_APP_LOCAL}/auth/register`, dataToSend);
+            // const response = await axios.post(`${localUrl}/auth/register`, dataToSend);
+            const response = await axios.post(`${import.meta.env.VITE_DEVELOPMENT_URL}/auth/register`, dataToSend);
+    
+            // Check if the response status is 200
+            if (response.status === 200) {
+                const { access_token, token_type } = response.data;
+    
+                // Save the token in localStorage for session management
+                localStorage.setItem('accessToken', `${token_type} ${access_token}`);
+    
+                // Show the success notification
+                setShowSuccess(true); // Show success notification
+                setTimeout(() => setShowSuccess(false), 3000); // Hide after 3 seconds
+    
+                // Navigate to the dashboard after successful signup
+                navigate('/dashboard');
+            } else {
+                // Handle cases where the status is not 200
+                setSubmissionError('Signup was not successful. Please try again.');
+            }
+    
+        } catch (error) {
+            // Handle any errors that occur during the signup process
+            console.error('Signup failed:', error);
+            setSubmissionError('Signup failed. Please try again.');
+        }
     };
 
     return (
@@ -70,8 +115,20 @@ const SignupPage = () => {
                     <img src={Logo} alt="Logo" className="w-8 h-8" />
                 </div>
 
+                {/* Render success notification */}
+                {showSuccess && (
+                    <SuccessSignup
+                        message="Sign up successful!"
+                        onClose={() => setShowSuccess(false)}
+                    />
+                )}
+
                 <form className="w-full max-w-md" onSubmit={handleSubmit}>
                     <h2 className="text-2xl font-semibold text-gray-800 mb-6">Signup</h2>
+
+                    {submissionError && (
+                        <p className="text-red-500 mb-4">{submissionError}</p> // Place at top if you want general errors
+                    )}
 
                     {/* First Name */}
                     <div className="mb-2">
@@ -198,6 +255,10 @@ const SignupPage = () => {
                                 I agree to all <a href="/terms" className="text-gray-700 hover:text-gray-500">terms and conditions</a>
                             </span>
                         </label>
+
+                        {termsError && (
+                            <p className="text-red-500 mt-2">You must agree to the terms and conditions.</p>
+                        )}
                     </div>
 
                     {/* Submit Button */}
@@ -207,7 +268,7 @@ const SignupPage = () => {
 
                     {/* Already have an account */}
                     <p className="mt-4 text-center text-gray-600">
-                        Already have an account? <Link to="/signin" className="text-gray-700 hover:text-gray-500">Sign In</Link>
+                        Already have an account? <Link to="/login" className="text-gray-700 hover:text-gray-500">Sign In</Link>
                     </p>
                 </form>
             </div>
