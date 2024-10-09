@@ -4,10 +4,11 @@ import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import LoginImage from '../images/man-home-Illustrator.png';
 import LogoColored from '../images/ChekamLogo_color@2x.png';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const Login = () => {
     const [formData, setFormData] = useState({
-        email: '',
+        username: '',
         password: '',
     });
     const [loginError, setLoginError] = useState(null); // To track login errors
@@ -24,7 +25,7 @@ const Login = () => {
         try {
             // Send the login data (email and password) to the backend
             // const response = await axios.post('YOUR_API_ENDPOINT/login', formData);
-            const response = await axios.post(`${import.meta.env.VITE_DEVELOPMENT_URL}/auth/login`, formData);
+            const response = await axios.post(`${import.meta.env.VITE_DEVELOPMENT_URL}/api/v1/auth/authenticate`, formData);
 
             // Check if the response is successful (status code 200)
             if (response.status === 200) {
@@ -39,7 +40,7 @@ const Login = () => {
             }
         } catch (error) {
             // If there's an error, handle it (e.g., incorrect credentials or network error)
-            console.error('Login failed:', error);
+            console.log('Login failed:', error);
             setLoginError('Login failed. Please check your email and password.');
         }
     };
@@ -64,8 +65,8 @@ const Login = () => {
                         </span>
                         <input
                             type="email"
-                            name="email"
-                            value={formData.email}
+                            name="username"
+                            value={formData.username}
                             onChange={handleInputChange}
                             placeholder="Email"
                             className="w-full p-1 focus:outline-none rounded-r-lg"
