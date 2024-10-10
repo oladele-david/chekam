@@ -65,6 +65,8 @@ const SignupPage = () => {
     
                 // Save the token in localStorage for session management
                 localStorage.setItem('accessToken', `${token_type} ${access_token}`);
+                console.log(access_token);
+                
     
                 // Show the success notification
                 setShowSuccess(true); // Show success notification
