@@ -4,9 +4,13 @@ import SuccessSignup from './SuccessSignup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faPhone, faLock } from '@fortawesome/free-solid-svg-icons';
 import SignUpImage from '../images/man-home-Illustrator.png'
-import Logo from '../images/Favicon_color@2x.png'
+import LogoColored from '../images/Favicon_color@2x.png'
 import LogoWhite from '../images/Favicon_white@2x.png'
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { register } from '../store/authSlice'; 
+import ApiClient from '../api/ApiClient';
+import AuthEndpoint from '../api/AuthEndpoint'; 
 
 
 const SignupPage = () => {
@@ -20,11 +24,15 @@ const SignupPage = () => {
         agreeToTerms: false
     });
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [passwordMatchError, setPasswordMatchError] = useState(false);
     const [termsError, setTermsError] = useState(false); // State to track terms error
     const [submissionError, setSubmissionError] = useState(null); // To track submission errors
     const [showSuccess, setShowSuccess] = useState(false);
     // const localUrl = import.meta.env.VITE_DEVELOPMENT_URL
+
+    const apiClient = new ApiClient(import.meta.env.VITE_DEVELOPMENT_URL, '');
+    const authEndpoint = new AuthEndpoint(apiClient);
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -54,36 +62,31 @@ const SignupPage = () => {
 
 
         try {
-            // Send the user data to the backend
-            // const response = await axios.post(`${process.env.REACT_APP_LOCAL}/auth/register`, dataToSend);
-            // const response = await axios.post(`${localUrl}/auth/register`, dataToSend);
-            const response = await axios.post(`${import.meta.env.VITE_DEVELOPMENT_URL}/auth/register`, dataToSend);
-    
-            // Check if the response status is 200
-            if (response.status === 200) {
-                const { access_token, token_type } = response.data;
-    
-                // Save the token in localStorage for session management
-                localStorage.setItem('accessToken', `${token_type} ${access_token}`);
-                console.log(access_token);
-                
-    
-                // Show the success notification
+            const response = await authEndpoint.register(dataToSend); // Use AuthEndpoint for registration
+
+            if (response) {
+                const { access_token, token_type, user } = response;
+
+                // Dispatch Redux register action
+                dispatch(register({
+                    token: `${token_type} ${access_token}`,
+                    user,
+                }));
+
                 setShowSuccess(true); // Show success notification
                 setTimeout(() => setShowSuccess(false), 3000); // Hide after 3 seconds
-    
+
                 // Navigate to the dashboard after successful signup
                 navigate('/dashboard');
             } else {
-                // Handle cases where the status is not 200
                 setSubmissionError('Signup was not successful. Please try again.');
             }
-    
         } catch (error) {
-            // Handle any errors that occur during the signup process
             console.error('Signup failed:', error);
             setSubmissionError('Signup failed. Please try again.');
         }
+
+
     };
 
     return (
@@ -101,7 +104,7 @@ const SignupPage = () => {
                 ></div>
 
                 {/* Slogan text */}
-                <h2 className="text-3xl font-bold text-gray-700 relative z-10 pt-40 text-center">
+                <h2 className="onest-bold text-3xl font-bold text-gray-700 relative z-10 pt-40 text-center">
                     Calculate Smarter,<br />Spend Wiser ...
                 </h2>
 
@@ -114,7 +117,7 @@ const SignupPage = () => {
             <div className=" md:w-1/3 h-3/5 bg-white relative flex justify-center items-center px-8 pt-20 pb-8 sm:rounded-lg sm:ml-8 sm:mt-12 sm:mb-12">
 
                 <div className="absolute top-8 right-8">
-                    <img src={Logo} alt="Logo" className="w-8 h-8" />
+                    <img src={LogoColored} alt="Logo" className="w-8 h-8" />
                 </div>
 
                 {/* Render success notification */}
@@ -125,8 +128,8 @@ const SignupPage = () => {
                     />
                 )}
 
-                <form className="w-full max-w-md" onSubmit={handleSubmit}>
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-6">Signup</h2>
+                <form className="onset-regular w-full max-w-md" onSubmit={handleSubmit}>
+                    <h2 className="onset-bold text-2xl font-semibold text-gray-800 mb-6">Signup</h2>
 
                     {submissionError && (
                         <p className="text-red-500 mb-4">{submissionError}</p> // Place at top if you want general errors

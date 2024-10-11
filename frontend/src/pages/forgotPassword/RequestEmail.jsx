@@ -35,7 +35,7 @@ const RequestResetModal = ({ onSubmitSuccess }) => {
 
             <div className="relative flex items-center justify-center w-8 h-8 top-2 left-2 bg-yellow-100 rounded-full">
               {/* Key Icon */}
-              <svg className="h-4 w-4 text-yellow-300" xmlns="http://www.w3.org/2000/svg" shapeRendering="geometricPrecision"
+              <svg className="h-4 w-4 text-customCyan" xmlns="http://www.w3.org/2000/svg" shapeRendering="geometricPrecision"
                 textRendering="geometricPrecision" imageRendering="optimizeQuality"
                 fillRule="evenodd" clipRule="evenodd" viewBox="0 0 512 509.939">
 

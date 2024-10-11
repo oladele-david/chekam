@@ -29,6 +29,11 @@ class UserEndpoint {
     const endpoint = `/users/delete/${userId}`;
     return this.apiClient.deleteData(endpoint);
   }
+
+  updateUserPassword(userId, data) {
+    const endpoint = `/users/update/password/${userId}`;
+    return this.apiClient.updateData(endpoint, data);
+  }
 }
 
 export default UserEndpoint;

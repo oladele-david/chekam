@@ -4,6 +4,8 @@ import SignupPage from './pages/SignUp';
 import LoginPage from './pages/Login'
 import Dashboard from './components/Dashboard';
 import PrivateRoute from './components/PrivateRoute.jsx'; // Import the PrivateRoute component
+import Expense from './components/reusable/Expense.jsx';
+import Budget from './components/reusable/Budget.jsx';
 function App() {
   
 
@@ -13,12 +15,14 @@ function App() {
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/signup" element={<SignupPage />}/>
         <Route path="/login" element={<LoginPage />}/>
-        <Route path="/dashboard" element={
-            <PrivateRoute>
-              <Dashboard />
+        <Route path="/expense" element={<Expense />}/>
+        <Route path="/budget" element={<Budget />}/>
+        <Route path="/dashboard" element={ <Dashboard />} />
+            {/* <PrivateRoute>
+              
             </PrivateRoute>
           }
-        />
+        /> */}
       </Routes>
       
     </Router>
