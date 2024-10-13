@@ -1,14 +1,14 @@
 // src/components/Dashboard.jsx
 import React from 'react';
-import Layout from './Layout';
-import FinancialCard from './FinancialCard';
-import Budgets from './Budgets.jsx';
-import RecentTransactions from './RecentTransactions';
+import Layout from '@/components/Layout.jsx';
+import FinancialCard from '@/components/FinancialCard';
+import Budgets from '@/components/Budgets.jsx';
+import RecentTransactions from '@/components/RecentTransactions';
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription, CardFooter} from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 
-const Dashboard = () => {
+const Console = () => {
   const transactions = [
     { date: 'Oct 07', icon: '🥕', title: 'Vegetables', category: 'Food', amount: 'NGN360' },
     { date: 'Oct 08', icon: '💰', title: 'Savings', category: 'Personal', amount: 'NGN660' },
@@ -88,4 +88,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Console;
