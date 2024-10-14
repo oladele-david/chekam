@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es6", // Use an appropriate version like "es2015"
+    "module": "esnext", // Change it if you're using another module system
+    "jsx": "react-jsx", // Use "react" if not using React 17+
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src"]
+}
