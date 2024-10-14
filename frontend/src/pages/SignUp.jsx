@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import SuccessSignup from './SuccessSignup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faPhone, faLock } from '@fortawesome/free-solid-svg-icons';
 import SignUpImage from '../images/man-home-Illustrator.png'
-import Logo from '../images/Favicon_color@2x.png'
+import LogoColored from '../images/Favicon_color@2x.png'
 import LogoWhite from '../images/Favicon_white@2x.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { register } from '../store/authSlice'; 
+import ApiClient from '../api/ApiClient';
+import AuthEndpoint from '../api/AuthEndpoint'; 
+
 
 const SignupPage = () => {
     const [formData, setFormData] = useState({
@@ -16,7 +23,16 @@ const SignupPage = () => {
         confirmPassword: '',
         agreeToTerms: false
     });
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [passwordMatchError, setPasswordMatchError] = useState(false);
+    const [termsError, setTermsError] = useState(false); // State to track terms error
+    const [submissionError, setSubmissionError] = useState(null); // To track submission errors
+    const [showSuccess, setShowSuccess] = useState(false);
+    // const localUrl = import.meta.env.VITE_DEVELOPMENT_URL
+
+    const apiClient = new ApiClient(import.meta.env.VITE_DEVELOPMENT_URL, '');
+    const authEndpoint = new AuthEndpoint(apiClient);
 
     const handleInputChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -26,17 +42,51 @@ const SignupPage = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             setPasswordMatchError(true);
             return;
         }
         setPasswordMatchError(false);
+
+        // Check if terms and conditions are agreed
+        if (!formData.agreeToTerms) {
+            setTermsError(true); // Set terms error state to true
+            return;
+        }
+        setTermsError(false); // Reset terms error state if user agrees
         // exclude confirmPassword when submitting to backend
-        const { confirmPassword, ...dataToSend } = formData;
+        const { confirmPassword, agreeToTerms, ...dataToSend } = formData;
         console.log('Data submitted: ', dataToSend);
-        // API call here
+
+
+        try {
+            const response = await authEndpoint.register(dataToSend); // Use AuthEndpoint for registration
+
+            if (response) {
+                const { access_token, token_type, user } = response;
+
+                // Dispatch Redux register action
+                dispatch(register({
+                    token: `${token_type} ${access_token}`,
+                    user,
+                }));
+
+                setShowSuccess(true); // Show success notification
+                setTimeout(() => setShowSuccess(false), 3000); // Hide after 3 seconds
+
+                // Navigate to the dashboard after successful signup
+                navigate('/dashboard');
+            } else {
+                setSubmissionError('Signup was not successful. Please try again.');
+            }
+        } catch (error) {
+            console.error('Signup failed:', error);
+            setSubmissionError('Signup failed. Please try again.');
+        }
+
+
     };
 
     return (
@@ -54,7 +104,7 @@ const SignupPage = () => {
                 ></div>
 
                 {/* Slogan text */}
-                <h2 className="text-3xl font-bold text-gray-700 relative z-10 pt-40 text-center">
+                <h2 className="onest-bold text-3xl font-bold text-gray-700 relative z-10 pt-40 text-center">
                     Calculate Smarter,<br />Spend Wiser ...
                 </h2>
 
@@ -67,11 +117,23 @@ const SignupPage = () => {
             <div className=" md:w-1/3 h-3/5 bg-white relative flex justify-center items-center px-8 pt-20 pb-8 sm:rounded-lg sm:ml-8 sm:mt-12 sm:mb-12">
 
                 <div className="absolute top-8 right-8">
-                    <img src={Logo} alt="Logo" className="w-8 h-8" />
+                    <img src={LogoColored} alt="Logo" className="w-8 h-8" />
                 </div>
 
-                <form className="w-full max-w-md" onSubmit={handleSubmit}>
-                    <h2 className="text-2xl font-semibold text-gray-800 mb-6">Signup</h2>
+                {/* Render success notification */}
+                {showSuccess && (
+                    <SuccessSignup
+                        message="Sign up successful!"
+                        onClose={() => setShowSuccess(false)}
+                    />
+                )}
+
+                <form className="onset-regular w-full max-w-md" onSubmit={handleSubmit}>
+                    <h2 className="onset-bold text-2xl font-semibold text-gray-800 mb-6">Signup</h2>
+
+                    {submissionError && (
+                        <p className="text-red-500 mb-4">{submissionError}</p> // Place at top if you want general errors
+                    )}
 
                     {/* First Name */}
                     <div className="mb-2">
@@ -198,6 +260,10 @@ const SignupPage = () => {
                                 I agree to all <a href="/terms" className="text-gray-700 hover:text-gray-500">terms and conditions</a>
                             </span>
                         </label>
+
+                        {termsError && (
+                            <p className="text-red-500 mt-2">You must agree to the terms and conditions.</p>
+                        )}
                     </div>
 
                     {/* Submit Button */}
@@ -207,7 +273,7 @@ const SignupPage = () => {
 
                     {/* Already have an account */}
                     <p className="mt-4 text-center text-gray-600">
-                        Already have an account? <Link to="/signin" className="text-gray-700 hover:text-gray-500">Sign In</Link>
+                        Already have an account? <Link to="/login" className="text-gray-700 hover:text-gray-500">Sign In</Link>
                     </p>
                 </form>
             </div>
