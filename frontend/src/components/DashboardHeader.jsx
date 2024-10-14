@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { ChevronDown, Menu } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import Sidebar from './Sidebar';
+import Sidebar from '@/components/Sidebar';
+import { logout } from '@/store/authSlice';
 
 const DashboardHeader = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dispatch = useDispatch();
   const dropdownRef = useRef(null);
 
   const user = useSelector((state) => state.auth.user);
@@ -29,6 +31,13 @@ const DashboardHeader = () => {
       document.removeEventListener('mousedown', closeDropdown);
     };
   }, []);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    navigate('/login');
+  };
 
   const getInitials = (firstName, lastName) => {
     const firstInitial = firstName ? firstName.charAt(0).toUpperCase() : '';
@@ -71,8 +80,8 @@ const DashboardHeader = () => {
               <li>
                 <Link to="/settings" className="block px-4 py-2 hover:bg-gray-100">Settings</Link>
               </li>
-              <li>
-                <Link to="/logout" className="block px-4 py-2 hover:bg-gray-100">Logout</Link>
+              <li onClick={handleLogout} className="block px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                Logout
               </li>
             </ul>
           </div>
