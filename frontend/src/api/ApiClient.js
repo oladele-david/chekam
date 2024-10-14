@@ -50,6 +50,10 @@ class ApiClient {
       return response.data;
     } catch (error) {
       console.error("API request failed:", error);
+      if (error.response) {
+        // Return the error response so it can be processed in the component
+        return Promise.reject(error.response);
+      }
       return null;
     }
   }

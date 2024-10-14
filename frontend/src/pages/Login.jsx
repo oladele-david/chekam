@@ -29,31 +29,37 @@ const Login = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setLoginError(null);
-    setLoginSuccess(null);
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsLoading(true);
+  setLoginError(null);
+  setLoginSuccess(null);
 
-    try {
-      const response = await authEndpoint.authenticate(formData);
+  try {
+    const response = await authEndpoint.authenticate(formData);
 
-      if (response) {
-        const { access_token, token_type, user } = response;
+    if (response) {
+      const { access_token, token_type, user } = response;
 
-        dispatch(login({ token: `${token_type} ${access_token}`, user }));
+      dispatch(login({ token: `${token_type} ${access_token}`, user }));
+      localStorage.setItem('authToken', `${token_type} ${access_token}`);
+      localStorage.setItem('user', JSON.stringify(user));
 
-        setLoginSuccess('Login successful!');
-        setTimeout(() => {
-          navigate('/console');
-        }, 2000);
-      }
-    } catch (error) {
-      setLoginError('Login failed. Please check your email and password.');
-    } finally {
-      setIsLoading(false);
+      setLoginSuccess('Login successful!');
+      setTimeout(() => {
+        navigate('/console');
+      }, 2000);
     }
-  };
+  } catch (error) {
+    if (error.status === 401) {
+      setLoginError(error.data.detail || 'Unauthorized access.');
+    } else {
+      setLoginError('An unexpected error occurred. Please try again.');
+    }
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-blue-100">
@@ -98,7 +104,7 @@ const Login = () => {
               required
             />
           </div>
-          {loginError && <Alert type="error">{loginError}</Alert>}
+          {loginError && <Alert type="error" variant="destructive">{loginError}</Alert>}
           {loginSuccess && <Alert type="success">{loginSuccess}</Alert>}
           <div className="text-right mb-4">
             <a href="/forgot-password" className="text-gray-600 text-sm hover:text-gray-500">Forgot password?</a>
