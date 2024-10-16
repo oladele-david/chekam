@@ -111,7 +111,7 @@ const Login = () => {
           </div>
           <Button
             type="submit"
-            className="w-full"
+            className="w-full bg-green-400 hover:bg-green-600"
             disabled={isLoading}
           >
             {isLoading ? <Spinner /> : 'Login'}
