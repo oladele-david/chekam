@@ -1,5 +1,6 @@
 // src/components/Sidebar.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Home, Layers, Wallet, FileText, Bell, Settings } from 'lucide-react';
 import LogoWhite from "@/images/Favicon_white@2x.png";
@@ -15,23 +16,25 @@ const Sidebar = () => (
     <nav className="flex-1">
       <ul className="space-y-4 p-4">
         {[
-          { icon: Home, label: 'Home', active: true },
-          { icon: Layers, label: 'Categories' },
-          { icon: Wallet, label: 'Budgets' },
-          { icon: FileText, label: 'Transactions' },
-          { icon: Bell, label: 'Notifications' },
-          { icon: Settings, label: 'Settings' },
-        ].map(({ icon: Icon, label, active }) => (
+          { icon: Home, label: 'Home', route: '/console' },
+          { icon: Layers, label: 'Categories', route: '/categories' },
+          { icon: Wallet, label: 'Budgets', route: '/budgets' },
+          { icon: FileText, label: 'Transactions', route: '/transactions' },
+          { icon: Bell, label: 'Notifications', route: '/notifications' },
+          { icon: Settings, label: 'Settings', route: '/settings' },
+        ].map(({ icon: Icon, label, route }) => (
           <li key={label}>
-            <Button
-              variant="ghost"
-              className={`w-full justify-start text-white text-lg py-3 hover:bg-blue-500 ${
-                active ? 'bg-blue-500' : 'bg-blue-600'
-              }`}
-            >
-              <Icon className="mr-3 h-5 w-5" />
-              {label}
-            </Button>
+            <Link to={route}>
+              <Button
+                variant="ghost"
+                className={`w-full justify-start text-white text-lg py-3 hover:bg-blue-500 ${
+                  route === window.location.pathname ? 'bg-blue-500' : 'bg-blue-600'
+                }`}
+              >
+                <Icon className="mr-3 h-5 w-5" />
+                {label}
+              </Button>
+            </Link>
           </li>
         ))}
       </ul>

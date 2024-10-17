@@ -52,7 +52,7 @@ const DashboardHeader = () => {
       <div className="flex items-center">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="bg-transparent lg:hidden mr-2">
+            <Button variant="ghost" size="icon" className="w-15 h-12 bg-transparent lg:hidden mr-2">
               <Menu className="h-6 w-6" />
             </Button>
           </SheetTrigger>
