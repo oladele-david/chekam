@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const FinancialCard = ({ title, amount, change }) => (
+const FinancialCard = ({ title, amount, change,currency }) => (
   <Card className="bg-white">
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
       <CardTitle className="text-sm font-medium text-gray-500">{title}</CardTitle>
@@ -17,7 +17,7 @@ const FinancialCard = ({ title, amount, change }) => (
       )}
     </CardHeader>
     <CardContent>
-      <div className="text-2xl font-bold">{amount}</div>
+      <div className="text-2xl font-bold">{currency}{amount}</div>
       <p className="text-xs text-gray-500">
         {Math.abs(change)}% from last month
       </p>
