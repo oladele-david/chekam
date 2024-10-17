@@ -70,17 +70,24 @@ def update_category(db: Session, category_id: int, category: CategoryUpdate):
     """
     Update a category based on the category Id
 
-    :param db:
-    :param category_id:
-    :param category:
-    :return:
+    :param db: Database session
+    :param category_id: ID of the category to update
+    :param category: CategoryUpdate Pydantic model containing updated data
+    :return: Updated category object
     """
+    db_category = db.query(Category).filter(Category.id == category_id).first()
+    if not db_category:
+        return None
 
-    db_category = db.query(category).filter(Category.id == category_id).first()
     db_category.name = category.name
     db_category.type = category.type
+    db_category.icon = category.icon
+    db_category.description = category.description
     db_category.predefined_category_id = category.predefined_category_id
 
+    db.commit()
+    db.refresh(db_category)
+    return db_category
 
 def delete_category(db: Session, category_id: int):
     """

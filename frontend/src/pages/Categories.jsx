@@ -6,6 +6,7 @@ import {Apple, Bus, DollarSign, GraduationCap, Home, MoreVertical, Pill, Trendin
 import Sidebar from '@/components/Sidebar';
 import DashboardHeader from "@/components/DashboardHeader";
 import AddCategoryDialog from '@/components/AddCategoryDialog';
+import EditCategoryDialog from '@/components/EditCategoryDialog';
 import ApiClient from '@/api/ApiClient';
 import CategoryEndpoint from '@/api/CategoryEndpoint';
 
@@ -15,6 +16,7 @@ export default function CategoriesPage() {
     const [categories, setCategories] = useState([]);
     const [dropdownOpen, setDropdownOpen] = useState(null);
     const dropdownRef = useRef(null);
+    const [editCategory, setEditCategory] = useState(null);
 
     const currentDate = new Date();
     const formattedDate = currentDate.toLocaleDateString('en-UK', {
@@ -63,6 +65,17 @@ export default function CategoriesPage() {
             icon: getIconComponent(newCategory.icon)
         };
         setCategories((prevCategories) => [...prevCategories, categoryWithIcon]);
+    };
+
+    const handleSaveCategory = (updatedCategory) => {
+        const categoryWithIcon = {
+            ...updatedCategory,
+            icon: getIconComponent(updatedCategory.icon)
+        };
+        setCategories((prevCategories) =>
+            prevCategories.map((cat) => (cat.id === updatedCategory.id ? categoryWithIcon : cat))
+        );
+        // Optionally send updatedCategory to the backend here
     };
 
     const handleDropdownToggle = (index) => {
@@ -117,7 +130,9 @@ export default function CategoriesPage() {
                                     <div ref={dropdownRef}
                                          className="absolute top-10 right-2 w-24 bg-white border border-gray-200 shadow-lg rounded-md z-10">
                                         <ul>
-                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Edit</li>
+                                            <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                                onClick={() => setEditCategory(category)}>Edit
+                                            </li>
                                             <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">Delete</li>
                                         </ul>
                                     </div>
@@ -138,6 +153,13 @@ export default function CategoriesPage() {
                                         <span className="text-sm">{category.type}</span>
                                     </div>
                                 </CardContent>
+                                {editCategory && editCategory.id === category.id && (
+                                    <EditCategoryDialog
+                                        category={editCategory}
+                                        onClose={() => setEditCategory(null)}
+                                        onSave={handleSaveCategory}
+                                    />
+                                )}
                             </Card>
                         ))}
                     </div>
