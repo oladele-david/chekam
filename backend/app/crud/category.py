@@ -55,6 +55,7 @@ def create_category(db: Session, category: CategoryCreate):
     db_category = Category(
         name=category.name,
         type=category.type,
+        icon=category.icon,
         description=category.description,
         user_id=category.user_id,
         predefined_category_id=category.predefined_category_id

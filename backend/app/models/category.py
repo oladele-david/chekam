@@ -13,6 +13,7 @@ class Category(Base):
     user_id = Column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'))
     name = Column(Text, nullable=False)
     type = Column(Text, nullable=False)
+    icon = Column(Text, nullable=True)
     description = Column(Text, nullable=True)
     predefined_category_id = Column(BigInteger, ForeignKey('predefined_categories.id', ondelete='SET NULL'))
     created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
