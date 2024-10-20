@@ -85,8 +85,6 @@ const SignupPage = () => {
             console.error('Signup failed:', error);
             setSubmissionError('Signup failed. Please try again.');
         }
-
-
     };
 
     return (
