@@ -26,6 +26,7 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
   const access_token = useSelector((state) => state.auth.access_token);
 
   const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState('');
   const [amount, setAmount] = useState('');
   const [currentAmount, setCurrentAmount] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -60,6 +61,7 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
     const data = {
       user_id: user.id,
       category_id: categoryId,
+      title: title,
       amount: parseFloat(amount),
       current_amount: parseFloat(currentAmount),
       start_date: startDate,
@@ -79,6 +81,7 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
       }, 2000);
 
       // Reset form
+      setTitle('');
       setAmount('');
       setCurrentAmount('');
       setStartDate('');
@@ -111,28 +114,41 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
             </Label>
             <Select value={categoryId} onValueChange={setCategoryId}>
               <SelectTrigger className="col-span-3">
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder="Select category"/>
               </SelectTrigger>
               <SelectContent>
                 {categories.map((category) => (
-                  <SelectItem key={category.id} value={category.id.toString()}>
-                    {category.name}
-                  </SelectItem>
+                    <SelectItem key={category.id} value={category.id.toString()}>
+                      {category.name}
+                    </SelectItem>
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="title" className="text-right">
+              Budget Title
+            </Label>
+            <Input
+                id="title"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="col-span-3"
+                required
+            />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="amount" className="text-right">
               Amount
             </Label>
             <Input
-              id="amount"
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              className="col-span-3"
-              required
+                id="amount"
+                type="number"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                className="col-span-3"
+                required
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -140,12 +156,12 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
               Current Amount
             </Label>
             <Input
-              id="currentAmount"
-              type="number"
-              value={currentAmount}
-              onChange={(e) => setCurrentAmount(e.target.value)}
-              className="col-span-3"
-              required
+                id="currentAmount"
+                type="number"
+                value={currentAmount}
+                onChange={(e) => setCurrentAmount(e.target.value)}
+                className="col-span-3"
+                required
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -153,12 +169,12 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
               Start Date
             </Label>
             <Input
-              id="startDate"
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="col-span-3"
-              required
+                id="startDate"
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="col-span-3"
+                required
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
@@ -166,28 +182,28 @@ export default function AddBudgetDialog({ onBudgetAdded }) {
               End Date
             </Label>
             <Input
-              id="endDate"
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className="col-span-3"
-              required
+                id="endDate"
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="col-span-3"
+                required
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label className="text-right">Icon</Label>
             <div className="col-span-3 flex flex-wrap gap-2">
               {icons.map((icon) => (
-                <Button
-                  key={icon.name}
-                  type="button"
-                  variant={selectedIcon === icon.name ? "default" : "outline"}
-                  size="icon"
-                  className="w-12 h-12"
-                  onClick={() => setSelectedIcon(icon.name)}
-                >
-                  <icon.component className="h-6 w-6 text-gray-400" />
-                </Button>
+                  <Button
+                      key={icon.name}
+                      type="button"
+                      variant={selectedIcon === icon.name ? "default" : "outline"}
+                      size="icon"
+                      className="w-12 h-12"
+                      onClick={() => setSelectedIcon(icon.name)}
+                  >
+                    <icon.component className="h-6 w-6 text-gray-400"/>
+                  </Button>
               ))}
             </div>
           </div>

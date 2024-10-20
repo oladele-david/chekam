@@ -150,7 +150,7 @@ export default function BudgetDashboard() {
                     {budget.icon}
                   </span>
                 </div>
-                <h3 className="font-semibold text-gray-800 text-lg mb-2">{budget.name}</h3>
+                <h3 className="font-semibold text-gray-800 text-lg mb-2">{budget.title}</h3>
                 <div className={`flex items-center ${budget.category.type === 'Expense' ? 'text-red-500' : 'text-green-500'}`}>
                   <div className={`w-3 h-3 rounded-full ${budget.category.type === 'Expense' ? 'bg-red-500' : 'bg-green-500'} mr-2`}></div>
                   <span className="text-sm">{budget.category.type}</span>

@@ -10,6 +10,7 @@ class Budget(Base):
     user_id = Column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'))
     category_id = Column(BigInteger, ForeignKey('categories.id', ondelete='CASCADE'))
 
+    title = Column(Text, nullable=True)
     amount = Column(Numeric(10, 2), nullable=False)
     current_amount = Column(Numeric(10, 2), server_default=text('0'), nullable=False)
     icon = Column(Text, nullable=True)

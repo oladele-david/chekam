@@ -10,12 +10,14 @@ class BudgetBase(BaseModel):
     Base schema for budget.
 
     Attributes:
+        title (string): the title
         amount (float): The total amount allocated for the budget.
         current_amount (Optional[float]): The current amount remaining in the budget.
         start_date (datetime): The start date of the budget period.
         end_date (datetime): The end date of the budget period.
     """
 
+    title: Optional[str] = None
     amount: float
     current_amount: Optional[float] = None
     start_date: datetime
