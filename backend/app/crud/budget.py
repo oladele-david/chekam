@@ -47,7 +47,7 @@ def get_budget_by_user(db: Session, user_id: int):
     :param user_id: ID of the user whose budgets are to be retrieved
     :return: List of budgets for the user
     """
-    all_user_budgets = db.query(Budget).options(
+    all_user_budgets = db.query(BudgetModel).options(
         joinedload(BudgetModel.user),
         joinedload(BudgetModel.category)
     ).filter(BudgetModel.user_id == user_id).all()
@@ -110,7 +110,7 @@ def update_current_amount(db: Session, budget_id: int, current_amount: float):
     :param current_amount: New current amount
     :return: The updated budget object or None if not found
     """
-    db_budget = db.query(Budget).filter(BudgetModel.id == budget_id).first()
+    db_budget = db.query(BudgetModel).filter(BudgetModel.id == budget_id).first()
     if not db_budget:
         return None
 
