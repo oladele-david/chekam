@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Text, TIMESTAMP, BigInteger, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+
 from app.db.base_class import Base
+
 
 class Category(Base):
     """
@@ -23,3 +25,4 @@ class Category(Base):
     user = relationship("User", back_populates="categories")
     predefined_category = relationship("PredefinedCategory", back_populates="categories")
     transactions = relationship("Transaction", back_populates="category")
+    budgets = relationship("Budget", back_populates="category")

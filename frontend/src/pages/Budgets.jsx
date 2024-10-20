@@ -151,14 +151,14 @@ export default function BudgetDashboard() {
                   </span>
                 </div>
                 <h3 className="font-semibold text-gray-800 text-lg mb-2">{budget.name}</h3>
-                <div className={`flex items-center ${budget.type === 'Expense' ? 'text-red-500' : 'text-green-500'}`}>
-                  <div className={`w-3 h-3 rounded-full ${budget.type === 'Expense' ? 'bg-red-500' : 'bg-green-500'} mr-2`}></div>
-                  <span className="text-sm">{budget.type}</span>
+                <div className={`flex items-center ${budget.category.type === 'Expense' ? 'text-red-500' : 'text-green-500'}`}>
+                  <div className={`w-3 h-3 rounded-full ${budget.category.type === 'Expense' ? 'bg-red-500' : 'bg-green-500'} mr-2`}></div>
+                  <span className="text-sm">{budget.category.type}</span>
                 </div>
                 <div className="w-full mt-4">
-                  <Progress value={(budget.current / budget.total) * 100} className="h-2" />
+                  <Progress value={(budget.current_amount / budget.amount) * 100} className="h-2" />
                   <div className="flex justify-between text-sm mt-2">
-                    <span className="font-medium">{budget.current.toLocaleString()} of {budget.total.toLocaleString()}</span>
+                    <span className="font-medium">{budget.current_amount} of {budget.amount}</span>
                   </div>
                 </div>
               </CardContent>

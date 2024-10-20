@@ -97,7 +97,7 @@ def delete_category(db: Session, category_id: int):
     :param category_id:
     :return:
     """
-    db_category = db.query(category).filter(Category.id == category_id).first()
+    db_category = db.query(Category).filter(Category.id == category_id).first()
     if db_category:
         db.delete(db_category)
         db.commit()
