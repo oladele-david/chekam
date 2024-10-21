@@ -62,6 +62,8 @@ def create_budget(db: Session, budget: BudgetCreate):
     :return: The newly created budget object
     """
     db_budget = BudgetModel(
+
+        title = budget.title,
         amount=budget.amount,
         current_amount=budget.current_amount or 0,  # Default to 0 if None
         start_date=budget.start_date,
@@ -90,6 +92,7 @@ def update_budget(db: Session, budget_id: int, budget: BudgetUpdate):
         return None
 
     # Update the budget fields
+    db_budget.title = budget.title
     db_budget.amount = budget.amount
     db_budget.current_amount = budget.current_amount
     db_budget.start_date = budget.start_date

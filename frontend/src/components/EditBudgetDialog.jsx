@@ -25,6 +25,7 @@ export default function EditBudgetDialog({ budget, onClose, onSave }) {
   const access_token = useSelector((state) => state.auth.access_token);
   const user = useSelector((state) => state.auth.user);
 
+  const [title, setTitle] = useState('');
   const [amount, setAmount] = useState(budget.amount);
   const [currentAmount, setCurrentAmount] = useState(budget.current_amount);
   const [startDate, setStartDate] = useState(budget.start_date);
@@ -57,6 +58,7 @@ export default function EditBudgetDialog({ budget, onClose, onSave }) {
     setIsLoading(true);
 
     const data = {
+      title: title,
       amount: parseFloat(amount),
       current_amount: parseFloat(currentAmount),
       start_date: startDate,
@@ -106,6 +108,17 @@ export default function EditBudgetDialog({ budget, onClose, onSave }) {
             </Select>
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="title" className="text-right">
+              Budget Title
+            </Label>
+            <Input
+                id="title"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="col-span-3"
+                required
+            />
             <Label htmlFor="amount" className="text-right">
               Amount
             </Label>
