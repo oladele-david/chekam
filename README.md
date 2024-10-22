@@ -30,26 +30,6 @@ Real-Time Alerts: Receive notifications when approaching or exceeding budget lim
 Financial Insights: Gain insights into spending patterns, saving habits, and income breakdowns.
 Reports: Generate reports to visualize income vs. expenses over time.
 
-## Installation
-
-<!-- ## Technology Stack -->
-
-### Requirements:
-
-### Backend
-- **Python**: 3.10.15 or higher
-- **FastAPI**: Build robust and high-performance APIs.
-- **PostgreSQL**: Reliable and scalable database system.
-- **SQLAlchemy & Alembic**: ORM and migration tool for database management.
-- **Uvicorn**: ASGI server for the application.
-- **bcrypt & Python-Jose**: Secure password hashing and JWT tokens.
-
-### Frontend
-- **Vite**: Fast and modern frontend development setup.
-- **React**: Efficient UI component framework.
-- **Tailwind CSS**: Utility-first CSS framework for custom, responsive designs.
-- **JavaScript**: Core scripting language for web pages.
-
 ## Project Structure
 
 Below is a high-level overview of the project structure:
@@ -68,3 +48,50 @@ chekam/
 │   └── ...
 └── README.md
 ```
+## Installation
+
+### Requirements:
+
+### Backend
+- **Python**: 3.10.15 or higher
+- **FastAPI**: Build robust and high-performance APIs.
+- **PostgreSQL**: Reliable and scalable database system.
+- **SQLAlchemy & Alembic**: ORM and migration tool for database management.
+- **Uvicorn**: ASGI server for the application.
+- **bcrypt & Python-Jose**: Secure password hashing and JWT tokens.
+
+### Frontend
+- **Vite**: Fast and modern frontend development setup.
+- **React**: Efficient UI component framework.
+- **Tailwind CSS**: Utility-first CSS framework for custom, responsive designs.
+- **JavaScript**: Core scripting language for web pages.
+
+### Setup Instructions:
+
+### Backend
+1. Clone the repository
+   ```bash
+   git clone https://github.com/yourusername/chekam.git
+   cd chekam/backend
+   ```
+2. Set up a virtual environment and activate it
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate  # Windows: .venv\Scripts\activate
+   ```
+3. Install dependencies
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+### Frontend
+1. Navigate to the frontend directory
+   ```bash
+   cd ../frontend
+   ```
+2. Install npm packages
+   ```bash
+   npm install
+   ```
+
+
