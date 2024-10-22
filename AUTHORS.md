@@ -12,6 +12,9 @@ This project is a collective effort by the following individuals:
 
 - **Mercy Akpan**
   - Email: akpanmeme@gmail.com
+ 
+- **Halima Adelaja**
+  - Email: enioladelajah@gmail.com
 
 ---
 
