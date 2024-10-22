@@ -28,17 +28,17 @@ const Console = () => {
             <div className="mb-8 bg">
                 <div className="flex justify-between items-center mb-4">
                     <div>
-                        <h2 className="text-3xl font-bold text-gray-800">Dashboard</h2>
+                        <h2 className="text-3xl font-bold text-customDark">Dashboard</h2>
                         <p className="text-gray-500">{formattedDate}</p>
                     </div>
                     <div className="flex items-center space-x-4">
                         <div className="text-right">
-                            <div className="text-2xl font-bold text-green-500">70%</div>
-                            <div className="text-sm text-gray-500">Completed</div>
+                            <div className="text-2xl font-bold text-customGreen">70%</div>
+                            <div className="text-sm text-customGray2">Completed</div>
                         </div>
                         <div className="text-right">
-                            <div className="text-sm text-gray-500">Remaining</div>
-                            <div className="text-2xl font-bold text-gray-800">09 Days</div>
+                            <div className="text-sm text-customGray2">Remaining</div>
+                            <div className="text-2xl font-bold text-customDark">09 Days</div>
                         </div>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ const Console = () => {
                     </CardHeader>
                     <CardContent>
                         <div className="font-semibold">Dinning out</div>
-                        <p className="text-xs text-gray-500">75% of budget used</p>
+                        <p className="text-xs text-customGray2">75% of budget used</p>
                         <Progress value={75} className="h-1 mt-2"/>
                     </CardContent>
                 </Card>
