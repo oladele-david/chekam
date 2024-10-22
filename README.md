@@ -132,19 +132,33 @@ npm run dev
 
 ## **API ENDPOINTS**
 *Note: You can fully access all these with the interactive documentaion [link above](http://127.0.0.1:8000/docs)*
+
 ### Authentication
-POST `/api/v1/auth/login`
-POST `/api/v1/auth/authenticate`
-POST `/api/v1/auth/register`
+POST `/api/v1/auth/login` Login
+POST `/api/v1/auth/authenticate` Login
+POST `/api/v1/auth/register` Register User
+
+### Users
+GET /api/v1/users Read Users
+GET /api/v1/users/{user_id} Read User
+GET /api/v1/users/create Create User
+GET /api/v1/users/update/{user_id} Update User
+GET /api/v1/users/delete/{user_id} Delete User
+
+### Predefined Categories
+GET /api/v1/predefined_categories/ Read Predefined Categories
+GET /api/v1/predefined_categories/{predefined_category_id} Read Predefined Category
+GET /api/v1/predefined_categories/create  Create Predefined Category
 
 ### Categories
+GET /api/v1/categories/ Read Categories
+GET /api/v1/categories/ Read Categories
+GET /api/v1/categories/ Read Categories
+GET /api/v1/categories/ Read Categories
+GET /api/v1/categories/ Read Categories
+GET /api/v1/categories/ Read Categories
 
-GET /api/v1/categories: List all categories.
-POST /api/v1/categories: Create a new category.
-GET /api/v1/categories/:id: Retrieve details of a specific category.
-PUT /api/v1/categories/:id: Update a category.
-DELETE /api/v1/categories/:id: Delete a category.
-Products
+
 GET /api/v1/products: List all products, with optional filters (e.g., by price, name, category).
 POST /api/v1/products: Create a new product (without images).
 GET /api/v1/products/:id: Retrieve details of a specific product.
