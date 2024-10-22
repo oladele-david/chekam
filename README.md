@@ -16,7 +16,7 @@ The **Chekam** project was born from the challenges individuals face in effectiv
 - [Features](#features)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [API Endpoints](#some-api-endpoints)
+- [API Endpoints](#api-endpoints)
 - [Documentation](#api-documentation)
 - [Contributing](#contributing)
 
@@ -104,9 +104,9 @@ chekam/
 ## Configuration
 **Environment Variables**
 The following environment variables need to be configured:
-- **Backend Environment Variables**: 
-- Make a `.env` file in the backend directory to configure database connection settings and secret keys like `DATABASE_URL` etc.
-- **Database Setup**: Use Alembic for migrations to initialize and manage database schema.
+**Backend Environment Variables**: 
+    - Make a `.env` file in the backend directory to configure database connection settings and secret keys like `DATABASE_URL` etc.
+**Database Setup**: Use Alembic for migrations to initialize and manage database schema.
 
 - **Frontend Environment Variables**: 
 Create a `.env.development` file in the frontend directory for environment-specific variables, like `API URLs`.
@@ -127,13 +127,13 @@ npm run dev
 ### API DOCUMENTATION
 You can access the **API documentation** at `http://127.0.0.1:8000/docs`.
 
-## **Some API ENDPOINTS**
+## **API ENDPOINTS**
 *Note: You can fully access all these with the interactive documentaion [link above](#api-documentation)*
 
 ### Authentication
-POST `/api/v1/auth/login` Login
-POST `/api/v1/auth/authenticate` Login
-POST `/api/v1/auth/register` Register User
+POST `/api/v1/auth/login` Login  
+POST `/api/v1/auth/authenticate` Login  
+POST `/api/v1/auth/register` Register User  
 
 ### Users
 GET /api/v1/users Read Users
