@@ -170,7 +170,7 @@ export default function AddTransactionDialog({ onTransactionAdded }) {
             <Input
               id="description"
               value={transactionDescription}
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => setTransactionDescription(e.target.value)}
               className="col-span-3"
               placeholder="Enter a brief description"
             />
