@@ -68,7 +68,7 @@ const Login = () => {
           Welcome Back,
           <br /> Log In to Continue
         </h2>
-        <img src={LoginImage} alt="Login Illustration" className="w-full h-full relative" />
+        <img src={LoginImage} alt="Login Illustration" className="w-full h-auto relative" />
       </div>
       <div className="md:w-1/2 flex justify-center items-center p-6 relative">
 
