@@ -13,15 +13,16 @@ The **Chekam** project was born from the challenges individuals face in effectiv
 
 ## Table of Contents
 <!-- Several lines and clickable like links  -->
-Features
-Installation
-Configuration
-API Endpoints
-Notifications & Alerts
-Testing
-Documentation
-Contributing
-License
+- [Features](#features)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [API Endpoints]
+- [Notifications & Alerts]
+- [Testing]
+- [Documentation](#)
+- [Contributing](#contributing)
+- [License](#license)
+
 
 ## Features
 Authentication: Secure login for personal and protected data access.
@@ -108,7 +109,8 @@ chekam/
 **Environment Variables**
 The following environment variables need to be configured:
 - **Backend Environment Variables**: 
-Make a `.env` file in the backend directory to configure database connection settings and secret keys like `DATABASE_URL` etc.
+- Make a `.env` file in the backend directory to configure database connection settings and secret keys like `DATABASE_URL` etc.
+- **Database Setup**: Use Alembic for migrations to initialize and manage database schema.
 
 - **Frontend Environment Variables**: 
 Create a `.env.development` file in the frontend directory for environment-specific variables, like `API URLs`.
@@ -120,6 +122,7 @@ To start the backend development server, navigate to the backend directory and r
 ```bash
 uvicorn app.main:app --reload
 ```
+You can access the **API documentation** at `http://127.0.0.1:8000/docs`.
 
 ### Running Frontend
 To start the frontend development server, navigate to the frontend directory and run:
@@ -127,6 +130,40 @@ To start the frontend development server, navigate to the frontend directory and
 npm run dev
 ```
 
+## **API ENDPOINTS**
+*Note: You can fully access all these with the interactive documentaion [link above](http://127.0.0.1:8000/docs)*
+### Authentication
+POST `/api/v1/auth/login`
+POST `/api/v1/auth/authenticate`
+POST `/api/v1/auth/register`
+
+### Categories
+
+GET /api/v1/categories: List all categories.
+POST /api/v1/categories: Create a new category.
+GET /api/v1/categories/:id: Retrieve details of a specific category.
+PUT /api/v1/categories/:id: Update a category.
+DELETE /api/v1/categories/:id: Delete a category.
+Products
+GET /api/v1/products: List all products, with optional filters (e.g., by price, name, category).
+POST /api/v1/products: Create a new product (without images).
+GET /api/v1/products/:id: Retrieve details of a specific product.
+PUT /api/v1/products/:id: Update a product.
+DELETE /api/v1/products/:id: Delete a product.
+POST /api/v1/products/:id/images: Add images to a product.
+DELETE /api/v1/products/:id/images/:image_id: Remove an image from a product.
+Carts
+GET /api/v1/cart: Retrieve the user's current cart (created automatically on first request).
+POST /api/v1/cart/items: Add an item to the cart.
+DELETE /api/v1/cart/items/:id: Remove an item from the cart.
+Checkout
+POST /api/v1/cart/checkout: Initiate the checkout process and create an order from the cart. The order status is updated in real-time via WebSocket.
+Orders
+GET /api/v1/orders: List all orders for the current authenticated user ( latest first).
+GET /api/v1/orders/:id: Retrieve details of a specific order.
+GET /api/v1/orders/:id/items: Retrieve all items for a specific order.
+GET /api/v1/orders/:id/items/:item_id: Retrieve a specific item from an order.
+POST /api/v1/orders/:id/cancel: Cancel an order if it is in the pending or processing state.
 
 
 
