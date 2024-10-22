@@ -100,7 +100,7 @@ export default function TransactionDashboard() {
       <div className="space-y-4">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-800">Transactions</h1>
+            <h1 className="text-2xl font-bold text-customDark">Transactions</h1>
             <p className="text-sm text-gray-500">{formattedDate}</p>
           </div>
           <AddTransactionDialog onTransactionAdded={handleTransactionAdded} />
