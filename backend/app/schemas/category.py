@@ -11,6 +11,7 @@ class CategoryBase(BaseModel):
     """
     name: str
     type: str
+    icon: Optional[str] = None
     description: Optional[str] = None
     predefined_category_id: Optional[int] = None
 

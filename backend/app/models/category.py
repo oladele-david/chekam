@@ -1,7 +1,9 @@
 from sqlalchemy import Column, Text, TIMESTAMP, BigInteger, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+
 from app.db.base_class import Base
+
 
 class Category(Base):
     """
@@ -13,6 +15,7 @@ class Category(Base):
     user_id = Column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'))
     name = Column(Text, nullable=False)
     type = Column(Text, nullable=False)
+    icon = Column(Text, nullable=True)
     description = Column(Text, nullable=True)
     predefined_category_id = Column(BigInteger, ForeignKey('predefined_categories.id', ondelete='SET NULL'))
     created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
@@ -22,3 +25,4 @@ class Category(Base):
     user = relationship("User", back_populates="categories")
     predefined_category = relationship("PredefinedCategory", back_populates="categories")
     transactions = relationship("Transaction", back_populates="category")
+    budgets = relationship("Budget", back_populates="category")
