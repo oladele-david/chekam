@@ -123,7 +123,7 @@ const SignupPage = () => {
                 <form className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg pt-20" onSubmit={handleSubmit}>
                     <div className="relative flex flex-row justify-between items-center">
                     <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
-                        <img src={LogoColored} alt="Logo" className="w-8 h-8 mb-6 bg-customLiteBlue"/>
+                        <img src={LogoColored} alt="Logo" className="w-8 h-8 mb-6"/>
                     </div>
 
                     {signupError && <Alert type="error" variant="destructive">{signupError}</Alert>}
