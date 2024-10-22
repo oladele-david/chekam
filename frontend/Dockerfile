@@ -8,12 +8,14 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install dependencies
+ARG VITE_DEVELOPMENT_URL
 RUN npm install
 
 # Copy all files to the container
 COPY . .
 
 # Build the application
+ENV VITE_DEVELOPMENT_URL=${VITE_DEVELOPMENT_URL}
 RUN npm run build
 
 # Use Nginx to serve the built files
