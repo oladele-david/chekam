@@ -16,13 +16,9 @@ The **Chekam** project was born from the challenges individuals face in effectiv
 - [Features](#features)
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [API Endpoints]
-- [Notifications & Alerts]
-- [Testing]
-- [Documentation](#)
+- [API Endpoints](#some-api-endpoints)
+- [Documentation](#api-documentation)
 - [Contributing](#contributing)
-- [License](#license)
-
 
 ## Features
 Authentication: Secure login for personal and protected data access.
@@ -122,16 +118,17 @@ To start the backend development server, navigate to the backend directory and r
 ```bash
 uvicorn app.main:app --reload
 ```
-You can access the **API documentation** at `http://127.0.0.1:8000/docs`.
 
 ### Running Frontend
 To start the frontend development server, navigate to the frontend directory and run:
 ```bash
 npm run dev
 ```
+### API DOCUMENTATION
+You can access the **API documentation** at `http://127.0.0.1:8000/docs`.
 
 ## **Some API ENDPOINTS**
-*Note: You can fully access all these with the interactive documentaion [link above](http://127.0.0.1:8000/docs)*
+*Note: You can fully access all these with the interactive documentaion [link above](#api-documentation)*
 
 ### Authentication
 POST `/api/v1/auth/login` Login
@@ -174,16 +171,15 @@ GET /api/v1/budgets/user/{user_id} Read User Budgets
 POST  /api/v1/budgets/user/{user_id} Create Budget
 PUT /api/v1/budgets/update/{budget_id} Update Budget
 PUT /api/v1/budgets/update/{budget_id}/current-amount Update Current amount
-
-
+DELETE /api/v1/budgets/delete/{budget_id}/ Delete Budget
 
 
 ## Contributing
 
 1. Fork the repository.
 2. Create a new feature branch: `git checkout -b feature/my-feature`
-3. Commit your changes: git commit -m 'Add new feature'
-4. Push to the branch: git push origin feature/my-feature.
+3. Commit your changes: `git commit -m 'Add new feature'`
+4. Push to the branch: `git push origin feature/my-feature.`
 5. Open a pull request.
 
 *Please ensure all tests pass before submitting your PR.*
