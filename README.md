@@ -158,6 +158,23 @@ POST /api/v1/categories/create Create Category
 PUT /api/v1/categories/update/{category_id} Update Category
 DELETE /api/v1/categories/delete/{category_id} Delete Category
 
+### Transactions
+
+GET /api/v1/transactions/ Read Transactions
+GET /api/v1/transactions/{transaction_id} Get Transaction
+GET /api/v1/transactions/user/{user_id} Get User Transactions
+POST /api/v1/transactions/create Create Transaction
+PUT /api/v1/transactions/update/{transaction_id} Update Transaction
+DELETE /api/v1/transactions/delete/{transaction_id} DELETE Transaction
+
+### Budgets
+GET /api/v1/budgets/ Read Budgets
+GET /api/v1/budgets/{budget_id} Read Budget
+GET /api/v1/budgets/user/{user_id} Read User Budgets
+POST  /api/v1/budgets/user/{user_id} Create Budget
+PUT /api/v1/budgets/update/{budget_id} Update Budget
+PUT /api/v1/budgets/update/{budget_id}/current-amount Update Current amount
+
 
 
 
