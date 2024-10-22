@@ -107,7 +107,7 @@ const Login = () => {
           {loginError && <Alert type="error" variant="destructive">{loginError}</Alert>}
           {loginSuccess && <Alert type="success">{loginSuccess}</Alert>}
           <div className="text-right mb-4">
-            <a href="/forgot-password" className="text-gray-600 text-sm hover:text-gray-500">Forgot password?</a>
+            <Link to="/request-email" className="text-gray-600 text-sm hover:text-gray-500">Forgot password?</Link>
           </div>
           <Button
             type="submit"
