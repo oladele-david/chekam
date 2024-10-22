@@ -60,7 +60,7 @@ const DashboardHeader = () => {
             <Sidebar />
           </SheetContent>
         </Sheet>
-        <h1 className="text-2xl font-bold text-blue-600">Welcome!</h1>
+        <h1 className="text-2xl font-bold text-customBlue">Welcome!</h1>
       </div>
       <div className="flex items-center space-x-4 relative">
         <span className="text-gray-700">{user ? `${user.first_name} ${user.last_name}` : 'Guest'}</span>
