@@ -71,8 +71,8 @@ const Console = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <div>
                     <div className="flex justify-between items-center mb-4">
-                        <h3 className="text-xl font-bold text-gray-800">Budget Expenses</h3>
-                        <Button variant="outline" className="text-blue-600 border-blue-600">Create Budget</Button>
+                        <h3 className="text-xl font-bold text-customDark">Budget Expenses</h3>
+                        <Button variant="outline" className="text-customBlue border-customBlue">Create Budget</Button>
                     </div>
                     <Budgets
                         icon={<div className="bg-blue-100 rounded-full p-2">
@@ -84,15 +84,15 @@ const Console = () => {
                         </div>}
                         title="Food"
                         amount="2,000"
-                        total="4,500"
+                        total="5,500"
                         currency="₦"
                     />
                     {/* Add more Budgets components as needed */}
                 </div>
                 <div>
                     <div className="flex justify-between items-center mb-4">
-                        <h3 className="text-xl font-bold text-gray-800">Recent Transactions</h3>
-                        <Button variant="outline" className="text-blue-600 border-blue-600">Add Transaction</Button>
+                        <h3 className="text-xl font-bold text-customDark">Recent Transactions</h3>
+                        <Button variant="outline" className="text-customBlue border-customBlue">Add Transaction</Button>
                     </div>
                     <RecentTransactions transactions={transactions}/>
                 </div>
