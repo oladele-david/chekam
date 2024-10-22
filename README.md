@@ -106,11 +106,11 @@ chekam/
 The following environment variables need to be configured:  
 
 **Backend Environment Variables**:  
-&nbsp- Make a `.env` file in the backend directory to configure database connection settings and secret keys like `DATABASE_URL` etc.  
-&nbsp- **Database Setup**: Use Alembic for migrations to initialize and manage database schema.  
+&emsp;- Make a `.env` file in the backend directory to configure database connection settings and secret keys like `DATABASE_URL` etc.  
+&emsp;- **Database Setup**: Use Alembic for migrations to initialize and manage database schema.  
 
 **Frontend Environment Variables**:  
-    - Create a `.env.development` file in the frontend directory for environment-specific variables, like `API URLs`.
+&emsp;- Create a `.env.development` file in the frontend directory for environment-specific variables, like `API URLs`.
 
 ## Usage
 
