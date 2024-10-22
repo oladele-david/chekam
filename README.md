@@ -130,42 +130,42 @@ POST `/api/v1/auth/authenticate` Login
 POST `/api/v1/auth/register` Register User  
 
 ### Users
-GET /api/v1/users Read Users  
-GET /api/v1/users/{user_id} Read User  
-POST /api/v1/users/create Create User  
-PUT /api/v1/users/update/{user_id} Update User  
-DELETE /api/v1/users/delete/{user_id} Delete User  
+GET `/api/v1/users` Read Users  
+GET `/api/v1/users/`{user_id} Read User  
+POST `/api/v1/users/create` Create User  
+PUT `/api/v1/users/update/{user_id}` Update User  
+DELETE `/api/v1/users/delete/{user_id}` Delete User  
 
 ### Predefined Categories
-GET /api/v1/predefined_categories/ Read Predefined Categories  
-GET /api/v1/predefined_categories/{predefined_category_id} Read Predefined Category  
-POST /api/v1/predefined_categories/create  Create Predefined Category  
+GET `/api/v1/predefined_categories/` Read Predefined Categories  
+GET `/api/v1/predefined_categories/{predefined_category_id}` Read Predefined Category  
+POST `/api/v1/predefined_categories/create`  Create Predefined Category  
 
 ### Categories
-GET /api/v1/categories/ Read Categories  
-GET /api/v1/categories/{category_id} Read Category  
-GET /api/v1/categories/user/{user_id} Read User Categories  
-POST /api/v1/categories/create Create Category  
-PUT /api/v1/categories/update/{category_id} Update Category  
-DELETE /api/v1/categories/delete/{category_id} Delete Category  
+GET `/api/v1/categories/` Read Categories  
+GET `/api/v1/categories/{category_id}` Read Category  
+GET `/api/v1/categories/user/{user_id}` Read User Categories  
+POST `/api/v1/categories/create` Create Category  
+PUT `/api/v1/categories/update/{category_id}` Update Category  
+DELETE `/api/v1/categories/delete/{category_id}` Delete Category  
 
 ### Transactions
 
-GET /api/v1/transactions/ Read Transactions  
-GET /api/v1/transactions/{transaction_id} Get Transaction  
-GET /api/v1/transactions/user/{user_id} Get User Transactions  
-POST /api/v1/transactions/create Create Transaction  
-PUT /api/v1/transactions/update/{transaction_id} Update Transaction  
-DELETE /api/v1/transactions/delete/{transaction_id} DELETE Transaction  
+GET `/api/v1/transactions/` Read Transactions  
+GET `/api/v1/transactions/{transaction_id}` Get Transaction  
+GET `/api/v1/transactions/user/{user_id}` Get User Transactions  
+POST `/api/v1/transactions/create` Create Transaction  
+PUT `/api/v1/transactions/update/{transaction_id}` Update Transaction  
+DELETE `/api/v1/transactions/delete/{transaction_id}` DELETE Transaction  
 
 ### Budgets
-GET /api/v1/budgets/ Read Budgets  
-GET /api/v1/budgets/{budget_id} Read Budget  
-GET /api/v1/budgets/user/{user_id} Read User Budgets  
-POST  /api/v1/budgets/user/{user_id} Create Budget  
-PUT /api/v1/budgets/update/{budget_id} Update Budget  
-PUT /api/v1/budgets/update/{budget_id}/current-amount Update Current amount  
-DELETE /api/v1/budgets/delete/{budget_id}/ Delete Budget  
+GET `/api/v1/budgets/` Read Budgets  
+GET `/api/v1/budgets/{budget_id}` Read Budget  
+GET `/api/v1/budgets/user/{user_id}` Read User Budgets  
+POST `/api/v1/budgets/user/{user_id}` Create Budget  
+PUT `/api/v1/budgets/update/{budget_id}` Update Budget  
+PUT `/api/v1/budgets/update/{budget_id}/current-amount` Update Current amount  
+DELETE `/api/v1/budgets/delete/{budget_id}/` Delete Budget  
 
 
 ## Contributing
