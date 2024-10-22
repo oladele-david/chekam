@@ -25,13 +25,13 @@ export default function EditBudgetDialog({ budget, onClose, onSave }) {
   const access_token = useSelector((state) => state.auth.access_token);
   const user = useSelector((state) => state.auth.user);
 
-  const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState(budget.amount);
-  const [currentAmount, setCurrentAmount] = useState(budget.current_amount);
-  const [startDate, setStartDate] = useState(budget.start_date);
-  const [endDate, setEndDate] = useState(budget.end_date);
-  const [categoryId, setCategoryId] = useState(budget.category_id);
-  const [selectedIcon, setSelectedIcon] = useState(budget.icon);
+  const [title, setTitle] = useState(budget.title || '');
+  const [amount, setAmount] = useState(budget.amount || '');
+  const [currentAmount, setCurrentAmount] = useState(budget.current_amount || '');
+  const [startDate, setStartDate] = useState(budget.start_date || '');
+  const [endDate, setEndDate] = useState(budget.end_date || '');
+  const [categoryId, setCategoryId] = useState(budget.category?.id || '');
+  const [selectedIcon, setSelectedIcon] = useState(budget.icon || '');
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [categories, setCategories] = useState([]);
@@ -58,7 +58,7 @@ export default function EditBudgetDialog({ budget, onClose, onSave }) {
     setIsLoading(true);
 
     const data = {
-      title: title,
+      title,
       amount: parseFloat(amount),
       current_amount: parseFloat(currentAmount),
       start_date: startDate,
@@ -94,7 +94,7 @@ export default function EditBudgetDialog({ budget, onClose, onSave }) {
             <Label htmlFor="category" className="text-right">
               Category
             </Label>
-            <Select value={categoryId} onValueChange={setCategoryId}>
+            <Select value={categoryId.toString()} onValueChange={setCategoryId}>
               <SelectTrigger className="col-span-3">
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
@@ -119,6 +119,8 @@ export default function EditBudgetDialog({ budget, onClose, onSave }) {
                 className="col-span-3"
                 required
             />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="amount" className="text-right">
               Amount
             </Label>
@@ -151,7 +153,7 @@ export default function EditBudgetDialog({ budget, onClose, onSave }) {
             <Input
               id="startDate"
               type="date"
-              value={startDate}
+              value={startDate.substring(0, 10)}
               onChange={(e) => setStartDate(e.target.value)}
               className="col-span-3"
               required
@@ -164,7 +166,7 @@ export default function EditBudgetDialog({ budget, onClose, onSave }) {
             <Input
               id="endDate"
               type="date"
-              value={endDate}
+              value={endDate.substring(0, 10)}
               onChange={(e) => setEndDate(e.target.value)}
               className="col-span-3"
               required
