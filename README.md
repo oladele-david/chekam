@@ -104,4 +104,39 @@ chekam/
    npm install
    ```
 
+## Configuration
+**Environment Variables**
+The following environment variables need to be configured:
+- **Backend Environment Variables**: 
+Make a `.env` file in the backend directory to configure database connection settings and secret keys like `DATABASE_URL` etc.
 
+- **Frontend Environment Variables**: 
+Create a `.env.development` file in the frontend directory for environment-specific variables, like `API URLs`.
+
+## Usage
+
+### Running Backend
+To start the backend development server, navigate to the backend directory and run:
+```bash
+uvicorn app.main:app --reload
+```
+
+### Running Frontend
+To start the frontend development server, navigate to the frontend directory and run:
+```bash
+npm run dev
+```
+
+
+
+
+
+## Contributing
+
+1. Fork the repository.
+2. Create a new feature branch: `git checkout -b feature/my-feature`
+3. Commit your changes: git commit -m 'Add new feature'
+4. Push to the branch: git push origin feature/my-feature.
+5. Open a pull request.
+
+*Please ensure all tests pass before submitting your PR.*
