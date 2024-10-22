@@ -176,4 +176,6 @@ DELETE `/api/v1/budgets/delete/{budget_id}/` Delete Budget
 4. Push to the branch: `git push origin feature/my-feature.`
 5. Open a pull request.
 
-*Please ensure all tests pass before submitting your PR.*
+## License
+
+This project is licensed under the GNU GENERAL PUBLIC License - see the [LICENSE](./LICENSE) file for details.
