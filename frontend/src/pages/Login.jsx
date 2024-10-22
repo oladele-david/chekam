@@ -62,46 +62,48 @@ const Login = () => {
 };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-blue-100">
-      <div className="md:w-1/2 flex flex-col justify-center items-center p-6 bg-blue-100 relative">
-        <h2 className="text-3xl font-bold text-gray-700 pt-40">
+    <div className="min-h-screen flex flex-col md:flex-row bg-customLiteBlue">
+      <div className="md:w-1/2 flex flex-col justify-center items-center bg-customLiteBlue relative">
+        <h2 className="text-3xl font-bold text-customDark pt-20">
           Welcome Back,
           <br /> Log In to Continue
         </h2>
-        <img src={LoginImage} alt="Login Illustration" className="w-full h-auto pt-24" />
+        <img src={LoginImage} alt="Login Illustration" className="w-full h-auto relative" />
       </div>
       <div className="md:w-1/2 flex justify-center items-center p-6 relative">
-        <div className="absolute top-60 right-36">
-          <img src={LogoColored} alt="Logo" className="w-8 h-8" />
-        </div>
+
         <form className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg pt-16" onSubmit={handleSubmit}>
-          <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+          <div className="relative flex flex-row justify-between items-center">
+            <h2 className="text-2xl font-bold mb-6">Login</h2>
+            <img src={LogoColored} alt="Logo" className="w-8 h-8 mb-6"/>
+          </div>
+
           <div className="flex items-center border border-gray-300 rounded-lg mb-4">
             <span className="ml-3 mr-3 border-r border-gray-300 pr-3">
-              <FontAwesomeIcon icon={faUser} className="text-gray-300" />
+              <FontAwesomeIcon icon={faUser} className="text-gray-300"/>
             </span>
             <Input
-              type="text"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-              placeholder="Email"
-              className="w-full"
-              required
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                placeholder="Email"
+                className="w-full"
+                required
             />
           </div>
           <div className="flex items-center border border-gray-300 rounded-lg mb-4">
             <span className="ml-3 mr-3 border-r border-gray-300 pr-3">
-              <FontAwesomeIcon icon={faLock} className="text-gray-300" />
+              <FontAwesomeIcon icon={faLock} className="text-gray-300"/>
             </span>
             <Input
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              placeholder="Password"
-              className="w-full"
-              required
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                placeholder="Password"
+                className="w-full"
+                required
             />
           </div>
           {loginError && <Alert type="error" variant="destructive">{loginError}</Alert>}
@@ -110,11 +112,11 @@ const Login = () => {
             <Link to="/request-email" className="text-gray-600 text-sm hover:text-gray-500">Forgot password?</Link>
           </div>
           <Button
-            type="submit"
-            className="w-full bg-green-400 hover:bg-green-600"
-            disabled={isLoading}
+              type="submit"
+              className="w-full bg-green-400 hover:bg-green-600"
+              disabled={isLoading}
           >
-            {isLoading ? <Spinner /> : 'Login'}
+            {isLoading ? <Spinner/> : 'Login'}
           </Button>
           <p className="text-center text-gray-600 mt-4">
             Don't have an account? <Link to="/signup" className="text-blue-500">Sign Up</Link>
