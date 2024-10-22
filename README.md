@@ -2,13 +2,13 @@
 <!-- All chekam should be bolden, and emojis present
 Can i change it to : u and i , make it more personal
  -->
-Chekam is a budget and expense management app that allow users track their income, manage their expenses, and set predefined limits on their budgets. This software  ensures that users—whether students, blue-collar or white-collar workers—can manage their income responsibly and work towards their more important financial goals, avoiding impulsive spending.
+**Chekam** is a budget and expense management app that allow users track their income, manage their expenses, and set predefined limits on their budgets. This software  ensures that users—whether students, blue-collar or white-collar workers—can manage their income responsibly and work towards their more important financial goals, avoiding impulsive spending.
 
 The app integrates authentication, budget alerts, and notifications, allowing users to categorise their expenses for easier financial management. It offers sophisticated APIs to help manage transactions, income streams, and expenses.
 
 ## Project Inspiration
 
-The Chekam project was born from the challenges individuals face in effectively managing personal finances. Many people struggle with tracking expenses and income, which can lead to missed savings opportunities and hinder financial growth. Chekam aims to simplify budget management while offering insights into spending habits, empowering users to achieve their financial goals more efficiently.
+The **Chekam** project was born from the challenges individuals face in effectively managing personal finances. Many people struggle with tracking expenses and income, which can lead to missed savings opportunities and hinder financial growth. **Chekam** aims to simplify budget management while offering insights into spending habits, empowering users to achieve their financial goals more efficiently.
 
 
 ## Table of Contents
