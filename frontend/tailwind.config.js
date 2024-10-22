@@ -10,6 +10,17 @@ export default {
   		colors: {
   			customCyan: '#1fd5d2',
   			customBlue: '#008ee4',
+			customGreen:'#00E074',
+			customGreen2: '#51D289',
+			customLiteBlue: '#D5EDFF',
+			customYellow: '#FFE600',
+			customLiteGray: '#DEDEDE',
+			customGray2: '#5D5D5D',
+			customGray3: '#374957',
+			customGray4: '#323030',
+			customDark: '#1E1E1E',
+
+
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
