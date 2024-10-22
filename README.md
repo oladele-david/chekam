@@ -130,7 +130,7 @@ To start the frontend development server, navigate to the frontend directory and
 npm run dev
 ```
 
-## **API ENDPOINTS**
+## **Some API ENDPOINTS**
 *Note: You can fully access all these with the interactive documentaion [link above](http://127.0.0.1:8000/docs)*
 
 ### Authentication
@@ -141,43 +141,22 @@ POST `/api/v1/auth/register` Register User
 ### Users
 GET /api/v1/users Read Users
 GET /api/v1/users/{user_id} Read User
-GET /api/v1/users/create Create User
-GET /api/v1/users/update/{user_id} Update User
-GET /api/v1/users/delete/{user_id} Delete User
+POST /api/v1/users/create Create User
+PUT /api/v1/users/update/{user_id} Update User
+DELETE /api/v1/users/delete/{user_id} Delete User
 
 ### Predefined Categories
 GET /api/v1/predefined_categories/ Read Predefined Categories
 GET /api/v1/predefined_categories/{predefined_category_id} Read Predefined Category
-GET /api/v1/predefined_categories/create  Create Predefined Category
+POST /api/v1/predefined_categories/create  Create Predefined Category
 
 ### Categories
 GET /api/v1/categories/ Read Categories
-GET /api/v1/categories/ Read Categories
-GET /api/v1/categories/ Read Categories
-GET /api/v1/categories/ Read Categories
-GET /api/v1/categories/ Read Categories
-GET /api/v1/categories/ Read Categories
-
-
-GET /api/v1/products: List all products, with optional filters (e.g., by price, name, category).
-POST /api/v1/products: Create a new product (without images).
-GET /api/v1/products/:id: Retrieve details of a specific product.
-PUT /api/v1/products/:id: Update a product.
-DELETE /api/v1/products/:id: Delete a product.
-POST /api/v1/products/:id/images: Add images to a product.
-DELETE /api/v1/products/:id/images/:image_id: Remove an image from a product.
-Carts
-GET /api/v1/cart: Retrieve the user's current cart (created automatically on first request).
-POST /api/v1/cart/items: Add an item to the cart.
-DELETE /api/v1/cart/items/:id: Remove an item from the cart.
-Checkout
-POST /api/v1/cart/checkout: Initiate the checkout process and create an order from the cart. The order status is updated in real-time via WebSocket.
-Orders
-GET /api/v1/orders: List all orders for the current authenticated user ( latest first).
-GET /api/v1/orders/:id: Retrieve details of a specific order.
-GET /api/v1/orders/:id/items: Retrieve all items for a specific order.
-GET /api/v1/orders/:id/items/:item_id: Retrieve a specific item from an order.
-POST /api/v1/orders/:id/cancel: Cancel an order if it is in the pending or processing state.
+GET /api/v1/categories/{category_id} Read Category
+GET /api/v1/categories/user/{user_id} Read User Categories
+POST /api/v1/categories/create Create Category
+PUT /api/v1/categories/update/{category_id} Update Category
+DELETE /api/v1/categories/delete/{category_id} Delete Category
 
 
 
