@@ -1,4 +1,4 @@
-# React + Vite
+# Chekam Frontend
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -24,9 +24,11 @@ The Chekam project was inspired by the common challenges individuals face in man
 
 - **Vite**:  For faster and leaner development environment
 - **Javascript (React)**: To create reusable UI components.
+- **Shadcn UI**: For building accessible and responsive web application components.
 - **Tailwind**: To create custom, responsive, and modern designs.
 - **CSS**: Control the appearance and layout of web pages.
 - **HTML**: Hypertext Markup Language. Create and structure content on the web. 
+- **FASTAPI**: Backend framework for building APIs.
 
 ## Architecture Overview
 
@@ -43,6 +45,11 @@ The Chekam project was inspired by the common challenges individuals face in man
     ```bash
     cd frontend 
     npm install
+    ```
+3. ** Create Environment Variables**:
+    ```bash
+    touch .env.development
+   echo "VITE_API_URL=http://your-localhost:PORT/api/v1/" > .env.development
     ```
    
 ## Usage
