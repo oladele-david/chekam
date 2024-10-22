@@ -2,10 +2,11 @@
 <!-- All chekam should be bolden, and emojis present
 Can i change it to : u and i , make it more personal
  -->
-**Chekam** is a budget and expense management app that allow users track their income, manage their expenses, and set predefined limits on their budgets. This software  ensures that users—whether students, blue-collar or white-collar workers—can manage their income responsibly and work towards their more important financial goals, avoiding impulsive spending.
+<!-- **Chekam** is a budget and expense management app that allow users track their income, manage their expenses, and set predefined limits on their budgets. This software  ensures that users—whether students, blue-collar or white-collar workers—can manage their income responsibly and work towards their more important financial goals, avoiding impulsive spending. -->
+Designed for **budget and expense control**, **Chekam** lets users **monitor their income**, **control their spending**, and create pre-defined restrictions on their budgets. This software ensures that users— whether they be students, blue-collar or white-collar workers—can manage their income responsibly and work towards their more important financial goals, avoiding impulsive spending.
 
 The app integrates authentication, budget alerts, and notifications, allowing users to categorise their expenses for easier financial management. It offers sophisticated APIs to help manage transactions, income streams, and expenses.
-
+<!-- Challenges, goals, initial plan -->
 ## Project Inspiration
 
 The **Chekam** project was born from the challenges individuals face in effectively managing personal finances. Many people struggle with tracking expenses and income, which can lead to missed savings opportunities and hinder financial growth. **Chekam** aims to simplify budget management while offering insights into spending habits, empowering users to achieve their financial goals more efficiently.
@@ -21,14 +22,14 @@ The **Chekam** project was born from the challenges individuals face in effectiv
 - [Contributing](#contributing)
 
 ## Features
-Authentication: Secure login for personal and protected data access.  
-Income Management: Track income from different sources (salary, freelancing, etc.).  
-Expense Tracking: Monitor and categorize all expenses.  
-Category Management: Group expenses by predefined categories (e.g., groceries, utilities, etc.).  
-Budgeting: Set and manage budget limits across different categories.  
-Real-Time Alerts: Receive notifications when approaching or exceeding budget limits.  
-Financial Insights: Gain insights into spending patterns, saving habits, and income breakdowns.  
-Reports: Generate reports to visualize income vs. expenses over time.
+**Authentication:** Secure login for personal and protected data access.  
+**Income Management:** Track income from different sources (salary, freelancing, etc.).  
+**Expense Tracking:** Monitor and categorize all expenses.  
+**Category Management:** Group expenses by predefined categories (e.g., groceries, utilities, etc.).  
+**Budgeting:** Set and manage budget limits across different categories.  
+**Real-Time Alerts:** Receive notifications when approaching or exceeding budget limits.  
+**Financial Insights:** Gain insights into spending patterns, saving habits, and income breakdowns.  
+**Reports:** Generate reports to visualize income vs. expenses over time.
 
 ## Project Structure
 
@@ -178,4 +179,4 @@ DELETE `/api/v1/budgets/delete/{budget_id}/` Delete Budget
 
 ## License
 
-This project is licensed under the GNU GENERAL PUBLIC License - see the [LICENSE](./LICENSE) file for details.
+This project is licensed under the GNU GENERAL PUBLIC License v3.0 - see the [LICENSE](./LICENSE) file for details.
