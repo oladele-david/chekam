@@ -30,7 +30,6 @@ const SignupPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    console.log(import.meta.env.VITE_DEVELOPMENT_URL);
     const apiClient = new ApiClient(import.meta.env.VITE_DEVELOPMENT_URL, '');
     const authEndpoint = new AuthEndpoint(apiClient);
 
