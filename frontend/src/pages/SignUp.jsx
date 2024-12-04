@@ -103,7 +103,7 @@ const SignupPage = () => {
         : 'bg-green-200 cursor-not-allowed'; // Disabled-look
 
     return (
-        <div className="min-h-screen flex flex-col md:flex-row bg-blue-100">
+        <div className="min-h-screen flex flex-col md:flex-row bg-customLiteBlue">
             <div className="md:w-1/2 flex flex-col justify-center items-center p-6 bg-blue-100 relative">
                 {/* Background logo image */}
                 <div
@@ -114,24 +114,25 @@ const SignupPage = () => {
                         backgroundPosition: '-90px -80px',  // Shift it leftwards
                     }}
                 ></div>
-                <h2 className="text-3xl font-bold text-gray-700 pt-40 text-center">
+                <h2 className="text-3xl font-bold text-customDark pt-40 text-left">
                     Calculate Smarter,<br />Spend Wiser ...
                 </h2>
-                <img src={SignUpImage} alt="Sign Up Illustration" className="w-full h-auto pt-24" />
+                <img src={SignUpImage} alt="Sign Up Illustration" className="w-full h-auto relative" />
             </div>
             <div className="md:w-1/2 flex justify-center items-center p-6 relative">
-                <div className="absolute top-28 right-32">
-                    <img src={LogoColored} alt="Logo" className="w-8 h-8" />
-                </div>
+
                 <form className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg pt-20" onSubmit={handleSubmit}>
-                    <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
+                    <div className="relative flex flex-row justify-between items-center">
+                    <h2 className="text-2xl font-bold mb-6">Sign Up</h2>
+                        <img src={LogoColored} alt="Logo" className="w-8 h-8 mb-6"/>
+                    </div>
 
                     {signupError && <Alert type="error" variant="destructive">{signupError}</Alert>}
                     {signupSuccess && <Alert type="success">{signupSuccess}</Alert>}
 
                     <div className="flex items-center border border-gray-300 rounded-lg mb-4">
                         <span className="ml-3 mr-3 border-r border-gray-300 pr-3">
-                            <FontAwesomeIcon icon={faUser} className="text-gray-300" />
+                            <FontAwesomeIcon icon={faUser} className="text-gray-300"/>
                         </span>
                         <Input
                             type="text"
@@ -146,7 +147,7 @@ const SignupPage = () => {
 
                     <div className="flex items-center border border-gray-300 rounded-lg mb-4">
                         <span className="ml-3 mr-3 border-r border-gray-300 pr-3">
-                            <FontAwesomeIcon icon={faUser} className="text-gray-300" />
+                            <FontAwesomeIcon icon={faUser} className="text-gray-300"/>
                         </span>
                         <Input
                             type="text"
@@ -161,7 +162,7 @@ const SignupPage = () => {
 
                     <div className="flex items-center border border-gray-300 rounded-lg mb-4">
                         <span className="ml-3 mr-3 border-r border-gray-300 pr-3">
-                            <FontAwesomeIcon icon={faEnvelope} className="text-gray-300" />
+                            <FontAwesomeIcon icon={faEnvelope} className="text-gray-300"/>
                         </span>
                         <Input
                             type="email"
@@ -176,7 +177,7 @@ const SignupPage = () => {
 
                     <div className="flex items-center border border-gray-300 rounded-lg mb-4">
                         <span className="ml-3 mr-3 border-r border-gray-300 pr-3">
-                            <FontAwesomeIcon icon={faPhone} className="text-gray-300" />
+                            <FontAwesomeIcon icon={faPhone} className="text-gray-300"/>
                         </span>
                         <Input
                             type="tel"
@@ -191,7 +192,7 @@ const SignupPage = () => {
 
                     <div className="flex items-center border border-gray-300 rounded-lg mb-4">
                         <span className="ml-3 mr-3 border-r border-gray-300 pr-3">
-                            <FontAwesomeIcon icon={faLock} className="text-gray-300" />
+                            <FontAwesomeIcon icon={faLock} className="text-gray-300"/>
                         </span>
                         <Input
                             type="password"
@@ -206,7 +207,7 @@ const SignupPage = () => {
 
                     <div className="flex items-center border border-gray-300 rounded-lg mb-4">
                         <span className="ml-3 mr-3 border-r border-gray-300 pr-3">
-                            <FontAwesomeIcon icon={faLock} className="text-gray-300" />
+                            <FontAwesomeIcon icon={faLock} className="text-gray-300"/>
                         </span>
                         <Input
                             type="password"
@@ -237,11 +238,11 @@ const SignupPage = () => {
                         className={`w-full ${buttonStyle} border-none`}
                         disabled={!formData.agreeToTerms || isLoading} // Disable when unchecked or loading
                     >
-                        {isLoading ? <Spinner /> : 'Sign Up'}
+                        {isLoading ? <Spinner/> : 'Sign Up'}
                     </Button>
 
-                    <p className="mt-4 text-center text-gray-600">
-                        Already have an account? <Link to="/login" className="text-blue-500">Sign In</Link>
+                    <p className="mt-4 text-center text-customGray4">
+                        Already have an account? <Link to="/login" className="text-customBlue">Sign In</Link>
                     </p>
                 </form>
             </div>
