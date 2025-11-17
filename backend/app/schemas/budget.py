@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator, model_validator
 from typing import Optional
 from datetime import datetime
 from app.schemas.user import User as UserSchema
@@ -23,6 +23,29 @@ class BudgetBase(BaseModel):
     start_date: datetime
     end_date: datetime
     icon: Optional[str] = None
+
+    @field_validator('amount')
+    @classmethod
+    def amount_must_be_positive(cls, v: float) -> float:
+        """Validate that amount is greater than 0."""
+        if v <= 0:
+            raise ValueError('Amount must be greater than 0')
+        return v
+
+    @field_validator('current_amount')
+    @classmethod
+    def current_amount_must_be_non_negative(cls, v: Optional[float]) -> Optional[float]:
+        """Validate that current_amount is non-negative."""
+        if v is not None and v < 0:
+            raise ValueError('Current amount cannot be negative')
+        return v
+
+    @model_validator(mode='after')
+    def validate_date_range(self):
+        """Validate that end_date is after or equal to start_date."""
+        if self.end_date < self.start_date:
+            raise ValueError('end_date must be greater than or equal to start_date')
+        return self
 
 
 class BudgetCreate(BudgetBase):

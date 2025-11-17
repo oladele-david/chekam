@@ -1,8 +1,9 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator, model_validator
 from typing import Optional
 from datetime import datetime, date
 from app.schemas.user import User as UserSchema
 from app.schemas.category import Category as CategorySchema
+
 
 class TransactionBase(BaseModel):
     """
@@ -21,6 +22,30 @@ class TransactionBase(BaseModel):
     start_date: date
     end_date: Optional[date] = None
     description: Optional[str] = None
+
+    @field_validator('amount')
+    @classmethod
+    def amount_must_be_positive(cls, v: float) -> float:
+        """Validate that amount is greater than 0."""
+        if v <= 0:
+            raise ValueError('Amount must be greater than 0')
+        return v
+
+    @field_validator('frequency')
+    @classmethod
+    def frequency_must_be_valid(cls, v: str) -> str:
+        """Validate that frequency is one of the allowed values."""
+        allowed_frequencies = ['one-time', 'daily', 'weekly', 'monthly', 'yearly']
+        if v not in allowed_frequencies:
+            raise ValueError(f'Frequency must be one of: {", ".join(allowed_frequencies)}')
+        return v
+
+    @model_validator(mode='after')
+    def validate_date_range(self):
+        """Validate that end_date is after or equal to start_date."""
+        if self.end_date and self.end_date < self.start_date:
+            raise ValueError('end_date must be greater than or equal to start_date')
+        return self
 
 class TransactionCreate(TransactionBase):
     """
