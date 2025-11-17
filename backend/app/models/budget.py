@@ -7,8 +7,8 @@ class Budget(Base):
     __tablename__ = "budgets"
 
     id = Column(BigInteger, primary_key=True, index=True)
-    user_id = Column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'))
-    category_id = Column(BigInteger, ForeignKey('categories.id', ondelete='CASCADE'))
+    user_id = Column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'), index=True)
+    category_id = Column(BigInteger, ForeignKey('categories.id', ondelete='CASCADE'), index=True)
 
     title = Column(Text, nullable=True)
     amount = Column(Numeric(10, 2), nullable=False)

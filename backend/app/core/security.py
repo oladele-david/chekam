@@ -5,13 +5,15 @@ from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
+
 from app import crud, schemas
+from app.core.config import settings
 from app.db.session import get_db
 
-# Settings for JWT tokens
-SECRET_KEY = "your-secret-key"  # Should be stored securely
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 180
+# Import settings from config
+SECRET_KEY = settings.SECRET_KEY
+ALGORITHM = settings.ALGORITHM
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
 
 # Dependency
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/auth/login")

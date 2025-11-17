@@ -12,12 +12,12 @@ class Category(Base):
     """
     __tablename__ = "categories"
     id = Column(BigInteger, primary_key=True, index=True)
-    user_id = Column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'))
+    user_id = Column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'), index=True)
     name = Column(Text, nullable=False)
     type = Column(Text, nullable=False)
     icon = Column(Text, nullable=True)
     description = Column(Text, nullable=True)
-    predefined_category_id = Column(BigInteger, ForeignKey('predefined_categories.id', ondelete='SET NULL'))
+    predefined_category_id = Column(BigInteger, ForeignKey('predefined_categories.id', ondelete='SET NULL'), index=True)
     created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
     updated_at = Column(TIMESTAMP(timezone=True), onupdate=func.now(), nullable=True)
 

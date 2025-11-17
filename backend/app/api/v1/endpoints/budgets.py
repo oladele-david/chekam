@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app import crud, schemas
@@ -17,7 +17,7 @@ def read_budgets(
         current_user: schemas.User = Depends(get_current_active_user)
 ):
     """
-    Retrieve all budgets.
+    Retrieve all budgets for the current user.
 
     Parameters:
     - skip (int): Number of records to skip for pagination.
@@ -28,7 +28,8 @@ def read_budgets(
     Returns:
     - List[schemas.Budget]: List of budget objects.
     """
-    budgets = crud.get_budgets(db, skip=skip, limit=limit)
+    # Only return budgets for the current user
+    budgets = crud.get_budget_by_user(db, user_id=current_user.id)
     return budgets
 
 @router.get("/{budget_id}", response_model=schemas.Budget)
@@ -54,6 +55,14 @@ def read_budget(
     budget = crud.get_budget(db, budget_id=budget_id)
     if not budget:
         raise HTTPException(status_code=404, detail="Budget not found")
+
+    # Authorization check: users can only access their own budgets
+    if budget.user_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to access this budget"
+        )
+
     return budget
 
 @router.get("/user/{user_id}", response_model=List[schemas.Budget])
@@ -73,6 +82,13 @@ def read_user_budgets(
     Returns:
     - List[schemas.Budget]: List of budget objects.
     """
+    # Authorization check: users can only access their own budgets
+    if user_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to access these budgets"
+        )
+
     budgets = crud.get_budget_by_user(db, user_id=user_id)
     return budgets
 
@@ -117,6 +133,18 @@ def update_budget(
     Raises:
     - HTTPException: If budget is not found.
     """
+    # First check if budget exists and user owns it
+    existing_budget = crud.get_budget(db, budget_id=budget_id)
+    if not existing_budget:
+        raise HTTPException(status_code=404, detail="Budget not found")
+
+    # Authorization check: users can only update their own budgets
+    if existing_budget.user_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to update this budget"
+        )
+
     return crud.update_budget(db, budget_id=budget_id, budget=budget)
 
 @router.put("/update/{budget_id}/current-amount", response_model=schemas.Budget)
@@ -141,6 +169,18 @@ def update_current_amount(
     Raises:
     - HTTPException: If budget is not found.
     """
+    # First check if budget exists and user owns it
+    existing_budget = crud.get_budget(db, budget_id=budget_id)
+    if not existing_budget:
+        raise HTTPException(status_code=404, detail="Budget not found")
+
+    # Authorization check: users can only update their own budgets
+    if existing_budget.user_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to update this budget"
+        )
+
     return crud.update_current_amount(db, budget_id=budget_id, current_amount=current_amount)
 
 @router.delete("/delete/{budget_id}", response_model=schemas.Budget)
@@ -163,4 +203,16 @@ def delete_budget(
     Raises:
     - HTTPException: If budget is not found.
     """
+    # First check if budget exists and user owns it
+    existing_budget = crud.get_budget(db, budget_id=budget_id)
+    if not existing_budget:
+        raise HTTPException(status_code=404, detail="Budget not found")
+
+    # Authorization check: users can only delete their own budgets
+    if existing_budget.user_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to delete this budget"
+        )
+
     return crud.delete_budget(db, budget_id=budget_id)
