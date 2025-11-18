@@ -6,7 +6,7 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "8001:8001"
+      - "3001:3001"
     environment:
       - DATABASE_URL=postgresql://chekam:chekam@51.8.81.142/chekam
     networks:
@@ -17,7 +17,7 @@ services:
       context: ./frontend
       dockerfile: Dockerfile
     ports:
-      - "8080:80"  # Change 80 to 8080 to avoid conflicts
+      - "3000:80"  # Map host 3000 to container 80
     networks:
       - my-main-net
 
