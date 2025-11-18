@@ -12,6 +12,7 @@ import {
   DollarSign,
   PieChart
 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 import ApiClient from '../api/ApiClient';
 import ReportsEndpoint from '../api/ReportsEndpoint';
 import CategoryEndpoint from '../api/CategoryEndpoint';
@@ -19,6 +20,7 @@ import CategoryEndpoint from '../api/CategoryEndpoint';
 export default function Reports() {
   const user = useSelector((state) => state.auth.user);
   const access_token = useSelector((state) => state.auth.token);
+  const { toast } = useToast();
 
   const [loading, setLoading] = useState(false);
   const [reportType, setReportType] = useState('monthly');
@@ -68,7 +70,11 @@ export default function Reports() {
 
         case 'category':
           if (!selectedCategory) {
-            alert('Please select a category');
+            toast({
+              title: "Validation Error",
+              description: "Please select a category",
+              variant: "destructive",
+            });
             setLoading(false);
             return;
           }
@@ -94,7 +100,11 @@ export default function Reports() {
       setReport(reportData);
     } catch (error) {
       console.error('Error generating report:', error);
-      alert('Failed to generate report. Please try again.');
+      toast({
+        title: "Error",
+        description: "Failed to generate report. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }

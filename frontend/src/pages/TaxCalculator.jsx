@@ -4,12 +4,14 @@ import Layout from '../components/Layout';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Calculator, FileText, TrendingUp, DollarSign } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 import ApiClient from '../api/ApiClient';
 import TaxEndpoint from '../api/TaxEndpoint';
 
 export default function TaxCalculator() {
   const user = useSelector((state) => state.auth.user);
   const access_token = useSelector((state) => state.auth.token);
+  const { toast } = useToast();
 
   const [calculationMode, setCalculationMode] = useState('manual'); // 'manual' or 'transactions'
   const [loading, setLoading] = useState(false);
@@ -31,7 +33,11 @@ export default function TaxCalculator() {
 
   const calculateTaxManually = async () => {
     if (!grossIncome || parseFloat(grossIncome) <= 0) {
-      alert('Please enter a valid gross income');
+      toast({
+        title: "Validation Error",
+        description: "Please enter a valid gross income",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -56,7 +62,11 @@ export default function TaxCalculator() {
       setTaxResult(result);
     } catch (error) {
       console.error('Error calculating tax:', error);
-      alert('Failed to calculate tax. Please try again.');
+      toast({
+        title: "Calculation Error",
+        description: "Failed to calculate tax. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
@@ -71,7 +81,11 @@ export default function TaxCalculator() {
       setTaxResult(result);
     } catch (error) {
       console.error('Error calculating tax from transactions:', error);
-      alert('Failed to calculate tax from transactions. Please try again.');
+      toast({
+        title: "Calculation Error",
+        description: "Failed to calculate tax from transactions. Please try again.",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }

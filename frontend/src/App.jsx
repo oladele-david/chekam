@@ -14,6 +14,7 @@ import NotFound from './pages/404';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import RequestEmail from './pages/forgotPassword/RequestEmail';
 import OfflineIndicator from './components/OfflineIndicator.jsx';
+import { Toaster } from '@/components/ui/toaster';
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <OfflineIndicator />
+      <Toaster />
     </Router>
   );
 }

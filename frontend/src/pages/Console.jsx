@@ -16,8 +16,12 @@ import {
   PiggyBank,
   AlertCircle,
   ArrowRight,
-  Bell
+  Bell,
+  Plus,
+  Receipt,
+  Calculator
 } from 'lucide-react';
+import AddTransactionDialog from '@/components/AddTransactionDialog';
 import ApiClient from '../api/ApiClient';
 import DashboardEndpoint from '../api/DashboardEndpoint';
 
@@ -47,6 +51,10 @@ const Console = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleTransactionAdded = () => {
+    fetchDashboardData(); // Refresh dashboard data
   };
 
   const formatCurrency = (amount) => {
@@ -124,6 +132,68 @@ const Console = () => {
             </div>
           )}
         </div>
+      </div>
+
+      {/* Quick Actions */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200 hover:shadow-md transition-shadow cursor-pointer">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-medium text-gray-600 mb-1">Quick Add</h3>
+                <p className="text-lg font-bold text-green-700">New Transaction</p>
+              </div>
+              <div className="bg-green-500 rounded-full p-3">
+                <Plus className="h-6 w-6 text-white" />
+              </div>
+            </div>
+            <div className="mt-4">
+              <AddTransactionDialog onTransactionAdded={handleTransactionAdded} />
+            </div>
+          </CardContent>
+        </Card>
+
+        <Link to="/transactions">
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:shadow-md transition-shadow h-full">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-medium text-gray-600 mb-1">View All</h3>
+                  <p className="text-lg font-bold text-blue-700">Transactions</p>
+                </div>
+                <div className="bg-blue-500 rounded-full p-3">
+                  <Receipt className="h-6 w-6 text-white" />
+                </div>
+              </div>
+              <div className="mt-4">
+                <Button variant="outline" className="w-full text-blue-700 border-blue-300 hover:bg-blue-50">
+                  View Details <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+
+        <Link to="/tax-calculator">
+          <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 hover:shadow-md transition-shadow h-full">
+            <CardContent className="p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-medium text-gray-600 mb-1">Calculate</h3>
+                  <p className="text-lg font-bold text-purple-700">Tax Estimates</p>
+                </div>
+                <div className="bg-purple-500 rounded-full p-3">
+                  <Calculator className="h-6 w-6 text-white" />
+                </div>
+              </div>
+              <div className="mt-4">
+                <Button variant="outline" className="w-full text-purple-700 border-purple-300 hover:bg-purple-50">
+                  Calculate Now <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
       </div>
 
       {/* Quick Stats */}
