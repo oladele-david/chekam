@@ -1,5 +1,15 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import users, auth, predefined_categories, categories, transactions, budgets, tax
+from app.api.v1.endpoints import (
+    users,
+    auth,
+    predefined_categories,
+    categories,
+    transactions,
+    budgets,
+    tax,
+    analytics,
+    dashboard
+)
 
 # Create an instance of APIRouter
 api_router = APIRouter()
@@ -24,3 +34,9 @@ api_router.include_router(budgets.router, prefix="/budgets", tags=["budgets"])
 
 # Include the tax router
 api_router.include_router(tax.router, prefix="/tax", tags=["tax"])
+
+# Include the analytics router
+api_router.include_router(analytics.router, prefix="/analytics", tags=["analytics"])
+
+# Include the dashboard router
+api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
