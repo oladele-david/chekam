@@ -411,6 +411,141 @@ class TaxService(BaseService):
 
         return crud_tax.tax_relief.get_by_user_and_year(db, user_id=user_id, year=year)
 
+    def calculate_tax_from_transactions(
+        self,
+        db: Session,
+        user_id: int,
+        current_user: User,
+        year: int,
+        custom_reliefs: Optional[Dict[str, float]] = None
+    ) -> Dict:
+        """
+        Calculate estimated tax based on income transactions for a year.
+
+        Analyzes all income transactions for the specified year and
+        calculates estimated annual tax liability.
+
+        Args:
+            db: Database session
+            user_id: User ID
+            current_user: Current user
+            year: Tax year
+            custom_reliefs: Optional custom reliefs to apply
+
+        Returns:
+            Tax calculation with transaction breakdown
+
+        Raises:
+            NotAuthorizedException: If accessing another user's data
+        """
+        # Authorization check
+        if user_id != current_user.id:
+            from app.core.exceptions import NotAuthorizedException
+            raise NotAuthorizedException("Not authorized to access this data")
+
+        self.log_operation("calculate_tax_from_transactions", f"year={year}", user_id)
+
+        # Import transaction CRUD
+        from app.crud import transaction as crud_transaction
+        from datetime import datetime
+
+        # Get all income transactions for the year
+        start_date = datetime(year, 1, 1)
+        end_date = datetime(year, 12, 31, 23, 59, 59)
+
+        transactions = crud_transaction.get_transactions_by_date_range(
+            db, user_id=user_id, start_date=start_date, end_date=end_date
+        )
+
+        # Calculate total income (positive amounts)
+        total_income = sum(
+            float(txn.amount) for txn in transactions if txn.amount > 0
+        )
+
+        if total_income == 0:
+            return {
+                "year": year,
+                "total_income": 0.0,
+                "income_transaction_count": 0,
+                "estimated_tax": 0.0,
+                "message": "No income transactions found for this year"
+            }
+
+        # Get user's reliefs for the year
+        user_reliefs = self.get_user_reliefs(db, user_id, year, current_user)
+
+        # Build reliefs dictionary
+        reliefs_dict = custom_reliefs.copy() if custom_reliefs else {}
+
+        # Add user's saved reliefs
+        for relief in user_reliefs:
+            if relief.verified == "true":  # Only include verified reliefs
+                relief_type = relief.relief_type
+                relief_amount = float(relief.amount)
+
+                # Sum up multiple reliefs of the same type
+                if relief_type in reliefs_dict:
+                    reliefs_dict[relief_type] += relief_amount
+                else:
+                    reliefs_dict[relief_type] = relief_amount
+
+        # Calculate tax
+        request = TaxCalculationRequest(
+            gross_income=total_income,
+            year=year,
+            reliefs=reliefs_dict if reliefs_dict else None
+        )
+
+        tax_calc = self.calculate_tax(db, request, current_user, save_to_history=False)
+
+        # Get income transaction details
+        income_transactions = [
+            {
+                "id": txn.id,
+                "date": txn.start_date.isoformat(),
+                "amount": float(txn.amount),
+                "description": txn.description or "",
+                "category": txn.category.name if txn.category else "Uncategorized"
+            }
+            for txn in transactions if txn.amount > 0
+        ]
+
+        # Calculate monthly breakdown
+        monthly_income = [0.0] * 12
+        for txn in transactions:
+            if txn.amount > 0:
+                month_index = txn.start_date.month - 1
+                monthly_income[month_index] += float(txn.amount)
+
+        monthly_breakdown = []
+        for month in range(12):
+            if monthly_income[month] > 0:
+                monthly_breakdown.append({
+                    "month": month + 1,
+                    "month_name": datetime(year, month + 1, 1).strftime("%B"),
+                    "income": monthly_income[month],
+                    "estimated_monthly_tax": tax_calc.net_tax / 12
+                })
+
+        return {
+            "year": year,
+            "total_income": total_income,
+            "income_transaction_count": len(income_transactions),
+            "monthly_breakdown": monthly_breakdown,
+            "tax_calculation": {
+                "gross_income": tax_calc.gross_income,
+                "total_reliefs": tax_calc.total_reliefs,
+                "taxable_income": tax_calc.taxable_income,
+                "gross_tax": tax_calc.gross_tax,
+                "net_tax": tax_calc.net_tax,
+                "effective_rate": tax_calc.effective_rate,
+                "breakdown_by_bracket": [b.model_dump() for b in tax_calc.breakdown_by_bracket]
+            },
+            "income_transactions": income_transactions[:10],  # Limit to 10 for response size
+            "applied_reliefs": reliefs_dict,
+            "generated_at": datetime.now().isoformat()
+        }
+
 
 # Create singleton instance
 tax_service = TaxService()

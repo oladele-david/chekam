@@ -344,3 +344,92 @@ def get_available_years(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to retrieve available years: {str(e)}"
         )
+
+
+@router.get("/from-transactions/{user_id}")
+def calculate_tax_from_transactions(
+    user_id: int,
+    year: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """
+    Calculate estimated tax based on income transactions for a year.
+
+    This endpoint analyzes all income transactions (positive amounts) for
+    the specified year and calculates the estimated annual tax liability.
+
+    **Features:**
+    - Automatically sums all income transactions for the year
+    - Applies user's saved and verified tax reliefs
+    - Provides monthly income breakdown
+    - Shows transaction details
+    - Calculates full progressive tax with bracket breakdown
+
+    **Use Cases:**
+    - Automatic tax estimation from actual income
+    - Year-end tax planning
+    - Comparison with manual tax calculations
+    - Tax compliance verification
+
+    Args:
+        user_id: User ID
+        year: Tax year
+        db: Database session
+        current_user: Current authenticated user
+
+    Returns:
+        Tax calculation based on transactions with detailed breakdown
+
+    Raises:
+        403: If user tries to access another user's data
+
+    Example:
+        GET /api/v1/tax/from-transactions/1?year=2026
+
+    Example Response:
+        ```json
+        {
+            "year": 2026,
+            "total_income": 6000000,
+            "income_transaction_count": 48,
+            "monthly_breakdown": [
+                {
+                    "month": 1,
+                    "month_name": "January",
+                    "income": 500000,
+                    "estimated_monthly_tax": 37500
+                }
+            ],
+            "tax_calculation": {
+                "gross_income": 6000000,
+                "total_reliefs": 1200000,
+                "taxable_income": 4800000,
+                "gross_tax": 450000,
+                "net_tax": 450000,
+                "effective_rate": 7.5,
+                "breakdown_by_bracket": [...]
+            },
+            "income_transactions": [...],
+            "applied_reliefs": {
+                "rent": 500000,
+                "pension": 480000,
+                "nhf": 150000
+            }
+        }
+        ```
+    """
+    try:
+        return tax_service.calculate_tax_from_transactions(
+            db=db,
+            user_id=user_id,
+            current_user=current_user,
+            year=year
+        )
+    except CheKamException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to calculate tax from transactions: {str(e)}"
+        )
