@@ -8,7 +8,8 @@ from app.api.v1.endpoints import (
     budgets,
     tax,
     analytics,
-    dashboard
+    dashboard,
+    reports
 )
 
 # Create an instance of APIRouter
@@ -40,3 +41,6 @@ api_router.include_router(analytics.router, prefix="/analytics", tags=["analytic
 
 # Include the dashboard router
 api_router.include_router(dashboard.router, prefix="/dashboard", tags=["dashboard"])
+
+# Include the reports router
+api_router.include_router(reports.router, prefix="/reports", tags=["reports"])

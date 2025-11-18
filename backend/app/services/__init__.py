@@ -12,6 +12,7 @@ from app.services.category_service import CategoryService
 from app.services.tax_service import TaxService
 from app.services.analytics_service import FinancialAnalyticsService
 from app.services.dashboard_service import DashboardService
+from app.services.report_service import ReportService
 
 __all__ = [
     "UserService",
@@ -21,4 +22,5 @@ __all__ = [
     "TaxService",
     "FinancialAnalyticsService",
     "DashboardService",
+    "ReportService",
 ]
