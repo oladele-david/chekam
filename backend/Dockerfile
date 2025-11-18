@@ -20,5 +20,5 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 3001
 
-# Command to run the application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "3001"]
+# Command to run migrations and start the application
+CMD ["/bin/sh", "-c", "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 3001"]
