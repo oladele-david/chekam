@@ -1,5 +1,6 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from typing import List
+from pydantic import field_validator
 
 
 class Settings(BaseSettings):
@@ -30,23 +31,30 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 180  # 3 hours
 
     # CORS Configuration
-    CORS_ORIGINS: List[str] = [
-        "http://localhost:3000",
-        "http://localhost:5173",
-        "http://localhost:8080",
-    ]
+    CORS_ORIGINS: str | List[str] = "http://localhost:3000,http://localhost:5173,http://localhost:8080"
     CORS_ALLOW_CREDENTIALS: bool = True
-    CORS_ALLOW_METHODS: List[str] = ["GET", "POST", "PUT", "DELETE", "PATCH"]
-    CORS_ALLOW_HEADERS: List[str] = ["*"]
+    CORS_ALLOW_METHODS: str | List[str] = "GET,POST,PUT,DELETE,PATCH"
+    CORS_ALLOW_HEADERS: str | List[str] = "*"
 
     # Pagination Defaults
     DEFAULT_SKIP: int = 0
     DEFAULT_LIMIT: int = 10
     MAX_LIMIT: int = 100
 
-    class Config:
-        env_file = ".env"
-        case_sensitive = True
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        case_sensitive=True,
+        env_parse_none_str="None",
+    )
+
+    @field_validator('CORS_ORIGINS', 'CORS_ALLOW_METHODS', 'CORS_ALLOW_HEADERS', mode='before')
+    @classmethod
+    def parse_cors_list(cls, v):
+        """Parse comma-separated strings into lists."""
+        if isinstance(v, str):
+            return [item.strip() for item in v.split(',')]
+        return v
+
 
 
 settings = Settings()

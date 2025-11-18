@@ -33,4 +33,4 @@ class Category(CategoryBase):
     # Add a field for the related predefined_category
 
     class Config:
-        orm_mode = True
+        from_attributes = True

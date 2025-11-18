@@ -19,6 +19,9 @@ class UserUpdate(UserBase):
 class User(UserBase):
     id: int
 
+    class Config:
+        from_attributes = True
+
 class UserLoginSchema(BaseModel):
     email: EmailStr
     password: str
@@ -26,5 +29,3 @@ class UserLoginSchema(BaseModel):
 class UserRegisterSchema(UserCreate):
     pass
 
-    class Config:
-        orm_mode = True
