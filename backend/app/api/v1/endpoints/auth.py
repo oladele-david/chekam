@@ -49,7 +49,7 @@ def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depend
     return {"access_token": access_token, "token_type": "bearer"}
 
 @router.post("/authenticate", response_model=schemas.RegisterResponse, status_code=status.HTTP_200_OK)
-def login(
+def authenticate(
         form_data: schemas.LoginRequest,
         db: Session = Depends(get_db)
 ):

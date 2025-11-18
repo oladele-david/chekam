@@ -31,18 +31,20 @@ def get_transaction(db: Session, transaction_id: int):
     ).first()
     return single_transaction
 
-def get_transactions_by_user(db: Session, user_id: int):
+def get_transactions_by_user(db: Session, user_id: int, skip: int = 0, limit: int = 100):
     """
-    Retrieve all transactions for a specific user.
+    Retrieve all transactions for a specific user with pagination.
 
     :param db: Database session.
     :param user_id: ID of the user whose transactions to retrieve.
+    :param skip: Number of records to skip for pagination.
+    :param limit: Maximum number of records to return.
     :return: List of transactions for the user.
     """
     all_user_transactions = db.query(Transaction).options(
         joinedload(Transaction.user),
         joinedload(Transaction.category)
-    ).filter(Transaction.user_id == user_id).all()
+    ).filter(Transaction.user_id == user_id).offset(skip).limit(limit).all()
     return all_user_transactions
 
 def create_transaction(db: Session, transaction: TransactionCreate):

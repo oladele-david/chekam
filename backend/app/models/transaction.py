@@ -26,8 +26,8 @@ class Transaction(Base):
     __tablename__ = "transactions"
 
     id = Column(BigInteger, primary_key=True, index=True)
-    user_id = Column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'))
-    category_id = Column(BigInteger, ForeignKey('categories.id', ondelete='SET NULL'))
+    user_id = Column(BigInteger, ForeignKey('users.id', ondelete='CASCADE'), index=True)
+    category_id = Column(BigInteger, ForeignKey('categories.id', ondelete='SET NULL'), index=True)
 
     amount = Column(Numeric(10, 2), nullable=False)
     frequency = Column(Text, CheckConstraint("frequency in ('one-time', 'daily', 'weekly', 'monthly', 'yearly')"),

@@ -17,7 +17,7 @@ def read_transactions(
         current_user: schemas.User = Depends(get_current_active_user)
 ):
     """
-    Retrieve all transactions.
+    Retrieve all transactions for the current user.
     :param skip:
     :param limit:
     :param db:
@@ -25,10 +25,11 @@ def read_transactions(
     :return:
     """
     try:
-        transactions = crud.get_transactions(db, skip=skip, limit=limit)
+        # Only return transactions for the current user
+        transactions = crud.get_transactions_by_user(db, user_id=current_user.id, skip=skip, limit=limit)
         return transactions
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.get("/{transaction_id}", response_model=schemas.Transaction)
@@ -49,9 +50,19 @@ def get_transaction(
         transaction = crud.get_transaction(db, transaction_id=transaction_id)
         if not transaction:
             raise HTTPException(status_code=404, detail="Transaction not found")
+
+        # Authorization check: users can only access their own transactions
+        if transaction.user_id != current_user.id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Not authorized to access this transaction"
+            )
+
         return transaction
+    except HTTPException:
+        raise
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.get("/user/{user_id}", response_model=List[schemas.Transaction])
@@ -67,13 +78,20 @@ def get_user_transactions(
     :param current_user:
     :return:
     """
+    # Authorization check: users can only access their own transactions
+    if user_id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to access these transactions"
+        )
+
     try:
         transactions = crud.get_transactions_by_user(db, user_id=user_id)
         if not transactions:
             raise HTTPException(status_code=404, detail="Transactions not found")
         return transactions
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.post("/create", response_model=schemas.Transaction, status_code=status.HTTP_201_CREATED)
@@ -93,7 +111,7 @@ def create_transaction(
         db_transaction = crud.create_transaction(db, transaction)
         return db_transaction
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
 
 @router.put("/update/{transaction_id}", response_model=schemas.Transaction)
@@ -112,10 +130,24 @@ def update_transaction(
     :return:
     """
     try:
+        # First check if transaction exists and user owns it
+        existing_transaction = crud.get_transaction(db, transaction_id=transaction_id)
+        if not existing_transaction:
+            raise HTTPException(status_code=404, detail="Transaction not found")
+
+        # Authorization check: users can only update their own transactions
+        if existing_transaction.user_id != current_user.id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Not authorized to update this transaction"
+            )
+
         db_transaction = crud.update_transaction(db, transaction_id=transaction_id, transaction=transaction)
         return db_transaction
+    except HTTPException:
+        raise
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))
 
 @router.delete("/delete/{transaction_id}", response_model=schemas.Transaction)
 def delete_transaction(
@@ -131,7 +163,21 @@ def delete_transaction(
     :return:
     """
     try:
+        # First check if transaction exists and user owns it
+        existing_transaction = crud.get_transaction(db, transaction_id=transaction_id)
+        if not existing_transaction:
+            raise HTTPException(status_code=404, detail="Transaction not found")
+
+        # Authorization check: users can only delete their own transactions
+        if existing_transaction.user_id != current_user.id:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Not authorized to delete this transaction"
+            )
+
         db_transaction = crud.delete_transaction(db, transaction_id=transaction_id)
         return db_transaction
+    except HTTPException:
+        raise
     except Exception as e:
-        return HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=400, detail=str(e))

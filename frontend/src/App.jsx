@@ -6,9 +6,14 @@ import Console from './pages/Console';
 import Categories from '@/pages/Categories';
 import Budgets from '@/pages/Budgets';
 import Transactions from './pages/Transactions.jsx';
-import NotFound from './pages/404'; // Import the 404 component
+import Analytics from './pages/Analytics';
+import Reports from './pages/Reports';
+import Notifications from './pages/Notifications';
+import TaxCalculator from './pages/TaxCalculator';
+import NotFound from './pages/404';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import RequestEmail from './pages/forgotPassword/RequestEmail';
+import OfflineIndicator from './components/OfflineIndicator.jsx';
 
 function App() {
   return (
@@ -21,6 +26,11 @@ function App() {
         <Route path="/console" element={
           <PrivateRoute>
             <Console />
+          </PrivateRoute>
+        }/>
+        <Route path="/analytics" element={
+          <PrivateRoute>
+            <Analytics />
           </PrivateRoute>
         }/>
         <Route path="/categories" element={
@@ -38,8 +48,24 @@ function App() {
             <Transactions />
           </PrivateRoute>
         }/>
-        <Route path="*" element={<NotFound />} /> {/* Catch-all route for 404 */}
+        <Route path="/reports" element={
+          <PrivateRoute>
+            <Reports />
+          </PrivateRoute>
+        }/>
+        <Route path="/tax-calculator" element={
+          <PrivateRoute>
+            <TaxCalculator />
+          </PrivateRoute>
+        }/>
+        <Route path="/notifications" element={
+          <PrivateRoute>
+            <Notifications />
+          </PrivateRoute>
+        }/>
+        <Route path="*" element={<NotFound />} />
       </Routes>
+      <OfflineIndicator />
     </Router>
   );
 }

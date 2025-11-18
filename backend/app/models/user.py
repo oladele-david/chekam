@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Text, TIMESTAMP, BigInteger
+from sqlalchemy import Column, Text, TIMESTAMP, BigInteger, Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
@@ -17,7 +17,7 @@ class User(Base):
             email (Text): The email address of the user. Must be unique and not nullable.
             phone_number (Text, optional): The phone number of the user.
             password_hash (Text): The hashed password of the user. Cannot be null.
-            is_active (Text): Indicates whether the user is active. Defaults to True.
+            is_active (Boolean): Indicates whether the user is active. Defaults to True.
             created_at (TIMESTAMP): The timestamp when the user was created.
             categories (relationship): Relationship to the Category model.
             transactions (relationship): Relationship to the Transaction model.
@@ -26,13 +26,15 @@ class User(Base):
     id = Column(BigInteger, primary_key=True, index=True)
     first_name = Column(Text)
     last_name = Column(Text)
-    email = Column(Text, unique=True, nullable=False)
+    email = Column(Text, unique=True, nullable=False, index=True)
     phone_number = Column(Text)
     password_hash = Column(Text, nullable=False)
-    is_active = Column(Text, default=True)
+    is_active = Column(Boolean, default=True, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
 
-    # Relationship
+    # Relationships
     categories = relationship("Category", back_populates="user")
     transactions = relationship("Transaction", back_populates="user")
     budgets = relationship("Budget", back_populates="user")
+    tax_calculations = relationship("TaxCalculation", back_populates="user")
+    tax_reliefs = relationship("TaxRelief", back_populates="user")
