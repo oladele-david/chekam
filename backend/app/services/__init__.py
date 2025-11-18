@@ -9,10 +9,12 @@ from app.services.user_service import UserService
 from app.services.transaction_service import TransactionService
 from app.services.budget_service import BudgetService
 from app.services.category_service import CategoryService
+from app.services.tax_service import TaxService
 
 __all__ = [
     "UserService",
     "TransactionService",
     "BudgetService",
     "CategoryService",
+    "TaxService",
 ]

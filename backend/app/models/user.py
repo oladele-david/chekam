@@ -32,7 +32,9 @@ class User(Base):
     is_active = Column(Boolean, default=True, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=func.now(), nullable=False)
 
-    # Relationship
+    # Relationships
     categories = relationship("Category", back_populates="user")
     transactions = relationship("Transaction", back_populates="user")
     budgets = relationship("Budget", back_populates="user")
+    tax_calculations = relationship("TaxCalculation", back_populates="user")
+    tax_reliefs = relationship("TaxRelief", back_populates="user")
