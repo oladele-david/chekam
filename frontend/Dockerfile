@@ -1,4 +1,4 @@
-FROM node:22-alpine AS build
+FROM node:22-alpine
 
 WORKDIR /app
 
@@ -12,11 +12,8 @@ COPY . .
 
 RUN npm run build
 
-FROM nginx:1.27-alpine AS production
-
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+RUN npm install -g serve
 
 EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["serve", "-s", "dist", "-l", "3000"]
