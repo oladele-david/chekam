@@ -10,9 +10,10 @@ import Analytics from './pages/Analytics';
 import Reports from './pages/Reports';
 import Notifications from './pages/Notifications';
 import TaxCalculator from './pages/TaxCalculator';
-import NotFound from './pages/404'; // Import the 404 component
+import NotFound from './pages/404';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import RequestEmail from './pages/forgotPassword/RequestEmail';
+import OfflineIndicator from './components/OfflineIndicator.jsx';
 
 function App() {
   return (
@@ -62,8 +63,9 @@ function App() {
             <Notifications />
           </PrivateRoute>
         }/>
-        <Route path="*" element={<NotFound />} /> {/* Catch-all route for 404 */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
+      <OfflineIndicator />
     </Router>
   );
 }
